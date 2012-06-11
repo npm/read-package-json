@@ -67,6 +67,7 @@ function readJson (file, cb) {
                 }
                 readJson.log.verbose("read json", file)
                 cb = (function (orig) { return function (er, data) {
+                                if (er) readJson.log.error("readJson", file, er)
                                 if (data) readJson.cache.set(file, data);
                                 return orig(er, data)
                 } })(cb)
@@ -115,7 +116,6 @@ function extras (file, data, cb) {
                                 final(file, data, cb)
                 })
 }
-
 
 function gypfile (file, data, cb) {
                 var dir = path.dirname(file)
@@ -198,6 +198,7 @@ function readme (file, data, cb) {
                 var dir = path.dirname(file)
                 glob("README?(.*)", { cwd: dir }, function (er, files) {
                                 if (er) return cb(er);
+                                if (!files.length) return cb()
                                 var rm = path.resolve(dir, files[0])
                                 readme_(file, data, rm, cb)
                 })
