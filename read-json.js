@@ -98,7 +98,7 @@ function indexjs (file, er, cb) {
                 }
                 var index = path.resolve(path.dirname(file), "index.js")
                 fs.readFile(index, "utf8", function (er2, d) {
-                                if (err2) return cb(er);
+                                if (er2) return cb(er);
                                 d = parseIndex(d)
                                 if (!d) return cb(er);
                                 extras(file, d, cb)
