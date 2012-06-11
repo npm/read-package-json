@@ -13,7 +13,8 @@
   },
   "dependencies": {
     "glob": "~3.1.9",
-    "lru-cache": "~1.1.0"
+    "lru-cache": "~1.1.0",
+    "semver": "~1.0.14"
   },
   "devDependencies": {
     "tap": "~0.2.5"

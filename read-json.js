@@ -24,8 +24,8 @@ var path = require("path")
 var glob = require("glob")
 var slide = require("slide")
 var asyncMap = slide.asyncMap
+var semver = require("semver")
 
-var loadDefaults = require("./load-package-defaults.js")
 var extraSet = [gypfile, wscript, serverjs, authors, readme, mans, bins]
 
 var typoWarned = {}
@@ -49,7 +49,7 @@ var typos = { "dependancies": "dependencies"
             , "publicationConfig": "publishConfig"
             }
 var bugsTypos = { "web": "url", "name": "url" }
-var scriptsTypos = { "server": "start", "tests": "test" }
+var scriptTypos = { "server": "start", "tests": "test" }
 var depTypes = [ "dependencies"
                , "devDependencies"
                , "optionalDependencies" ]
@@ -72,7 +72,7 @@ function readJson (file, cb) {
 
 
 function readJson_ (file, cb) {
-                fs.readFileSync(file, "utf8", function (er, d) {
+                fs.readFile(file, "utf8", function (er, d) {
                                 if (er && er.code === "ENOENT") {
                                                 indexjs(file, er, cb)
                                                 return
@@ -125,7 +125,7 @@ function gypfile (file, data, cb) {
                 })
 }
 
-function gypfiles_ (file, data, files, cb) {
+function gypfile_ (file, data, files, cb) {
                 if (!files.length) return cb(null, data);
                 var s = data.scripts || {}
                 s.install = "node-gyp rebuild"
@@ -191,6 +191,7 @@ function authors_ (file, data, ad, cb) {
 
 function readme (file, data, cb) {
                 if (data.readme) return cb(null, data);
+                var dir = path.dirname(file)
                 glob("README?(.*)", { cwd: dir }, function (er, files) {
                                 if (er) return cb(er);
                                 var rm = path.resolve(dir, files[0])
@@ -239,9 +240,9 @@ function bins_ (file, data, bins, cb) {
 }
 
 function final (file, data, cb) {
-                var ret = validName(data)
+                var ret = validName(file, data)
                 if (ret !== true) return cb(ret);
-                ret = validVersion(data)
+                ret = validVersion(file, data)
                 if (ret !== true) return cb(ret);
 
                 data._id = data.name + "@" + data.version
@@ -252,8 +253,9 @@ function final (file, data, cb) {
                 validMan(file, data)
                 validBundled(file, data)
                 objectifyDeps(file, data)
-                unparsePeople(file, data)
+                unParsePeople(file, data)
                 parsePeople(file, data)
+
                 cache.set(file, data)
                 cb(null, data)
 }
@@ -268,7 +270,11 @@ function parseIndex (data) {
                 if (data.length < 2) return null
                 data = data[0]
                 data = data.replace(/^\s*\*/mg, "")
-                return data
+                try {
+                                return JSON.parse(data)
+                } catch (er) {
+                                return null
+                }
 }
 
 function parseError (ex, file) {
@@ -285,13 +291,13 @@ function typoWarn (file, data) {
                 if (data.modules) {
                                 warn(file, data,
                                      "'modules' is deprecated")
-                                delete json.modules
+                                delete data.modules
                 }
                 Object.keys(typos).forEach(function (d) {
                                 checkTypo(file, data, d)
                 })
                 bugsTypoWarn(file, data)
-                scriptsTypoWarn(file, data)
+                scriptTypoWarn(file, data)
 }
 
 function checkTypo (file, data, d) {
@@ -355,10 +361,10 @@ function warnRepostories (file, data) {
 }
 
 function validFiles (file, data) {
-                var files = json.files
+                var files = data.files
                 if (files && !Array.isArray(files)) {
                                 warn(file, data, "Invalid 'files' member")
-                                delete json.files
+                                delete data.files
                 }
 }
 
@@ -437,25 +443,18 @@ function warn (f, d, m) {
 
 
 function validName (file, data) {
-                if (!json.name) return new Error("No 'name' field")
-                json.name = json.name.trim()
-                if (json.name.charAt(0) === "." ||
-                    json.name.match(/[\/@\s\+%:]/) ||
-                    json.name.toLowerCase() === "node_modules" ||
-                    json.name.toLowerCase() === "favicon.ico") {
+                if (!data.name) return new Error("No 'name' field")
+                data.name = data.name.trim()
+                if (data.name.charAt(0) === "." ||
+                    data.name.match(/[\/@\s\+%:]/) ||
+                    data.name.toLowerCase() === "node_modules" ||
+                    data.name.toLowerCase() === "favicon.ico") {
                                 return new Error("Invalid name: " +
-                                                 JSON.stringify(json.name))
+                                                 JSON.stringify(data.name))
                 }
                 return true
 }
 
-
-function validFiles (file, data) {
-                if (files && !Array.isArray(files)) {
-                                warn(file, data, "invalid files field")
-                                delete data.files
-                }
-}
 
 function parseKeywords (file, data) {
                 var kw = data.keywords
@@ -471,20 +470,21 @@ function validVersion (file, data) {
                 if (!semver.valid(v)) {
                                 return new Error("invalid version: "+v)
                 }
-                json.version = semver.clean(json.version)
+                data.version = semver.clean(data.version)
+                return true
 }
-function unParsePeople (json) {
-                return parsePeople(json, true)
+function unParsePeople (file, data) {
+                return parsePeople(file, data, true)
 }
 
-function parsePeople (json, un) {
+function parsePeople (file, data, un) {
                 var fn = un ? unParsePerson : parsePerson
-                if (json.author) json.author = fn(json.author)
+                if (data.author) data.author = fn(data.author)
                 ;["maintainers", "contributors"].forEach(function (set) {
-                                if (!Array.isArray(json[set])) return;
-                                json[set] = json[set].map(fn)
+                                if (!Array.isArray(data[set])) return;
+                                data[set] = data[set].map(fn)
                 })
-                return json
+                return data
 }
 
 function unParsePerson (person) {
@@ -504,7 +504,7 @@ function parsePerson (person) {
                 var email = person.match(/<([^>]+)>/)
                 var obj = {}
                 if (name && name[0].trim()) obj.name = name[0].trim()
-                if (email) obj.email = email[1]
-                if (url) obj.url = url[1]
+                if (email) obj.email = email[1];
+                if (url) obj.url = url[1];
                 return obj
 }
