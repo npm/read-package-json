@@ -28,7 +28,8 @@ var slide = require("slide")
 var asyncMap = slide.asyncMap
 var semver = require("semver")
 
-var extraSet = [gypfile, wscript, serverjs, authors, readme, mans, bins]
+// put more stuff on here to customize.
+readJson.extraSet = [gypfile, wscript, serverjs, authors, readme, mans, bins]
 
 var typoWarned = {}
 // http://registry.npmjs.org/-/fields
@@ -105,8 +106,9 @@ function indexjs (file, er, cb) {
 }
 
 
+readJson.extras = extras
 function extras (file, data, cb) {
-                asyncMap(extraSet, function (fn, cb) {
+                asyncMap(readJson.extraSet, function (fn, cb) {
                                 return fn(file, data, cb)
                 }, function (er) {
                                 if (er) return cb(er);
