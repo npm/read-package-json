@@ -1,9 +1,9 @@
 // vim: set softtabstop=16 shiftwidth=16:
 
 try {
-                var log = require("npmlog")
+                readJson.log = require("npmlog")
 } catch (er) {
-                var log = {
+                readJson.log = {
                                 info: function () {},
                                 verbose: function () {},
                                 warn: function () {}
@@ -60,11 +60,11 @@ var depTypes = [ "dependencies"
 function readJson (file, cb) {
                 var c = cache.get(file)
                 if (c) {
-                                log.verbose("from cache", file)
+                                readJson.log.verbose("from cache", file)
                                 cb = cb.bind(null, null, c)
                                 return process.nextTick(cb);
                 }
-                log.verbose("read json", file)
+                readJson.log.verbose("read json", file)
                 cb = (function (orig) { return function (er, data) {
                                 if (data) cache.set(file, data);
                                 return orig(er, data)
@@ -436,7 +436,7 @@ function depObjectify (file, data, deps) {
 
 
 function warn (f, d, m) {
-                log.warn("package.json", d._id, m)
+                readJson.log.warn("package.json", d._id, m)
 }
 
 
