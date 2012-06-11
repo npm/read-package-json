@@ -1,3 +1,5 @@
+// vim: set softtabstop=16 shiftwidth=16:
+
 try {
                 var log = require("npmlog")
 } catch (er) {
