@@ -377,6 +377,7 @@ function validBin (file, data) {
                 if (typeof data.bin === "string") {
                                 var b = {}
                                 b[data.name] = data.bin
+                                data.bin = b
                 }
 }
 
