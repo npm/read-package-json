@@ -435,10 +435,6 @@ function depObjectify (file, data, deps) {
 }
 
 
-
-
-
-
 function warn (f, d, m) {
                 log.warn("package.json", d._id, m)
 }
