@@ -21,7 +21,7 @@ try {
 module.exports = readJson
 
 var LRU = require("lru-cache")
-var cache = new LRU(1000)
+readJson.cache = new LRU(1000)
 var path = require("path")
 var glob = require("glob")
 var slide = require("slide")
@@ -58,7 +58,7 @@ var depTypes = [ "dependencies"
 
 
 function readJson (file, cb) {
-                var c = cache.get(file)
+                var c = readJson.cache.get(file)
                 if (c) {
                                 readJson.log.verbose("from cache", file)
                                 cb = cb.bind(null, null, c)
@@ -66,7 +66,7 @@ function readJson (file, cb) {
                 }
                 readJson.log.verbose("read json", file)
                 cb = (function (orig) { return function (er, data) {
-                                if (data) cache.set(file, data);
+                                if (data) readJson.cache.set(file, data);
                                 return orig(er, data)
                 } })(cb)
                 readJson_(file, cb)
@@ -258,7 +258,7 @@ function final (file, data, cb) {
                 unParsePeople(file, data)
                 parsePeople(file, data)
 
-                cache.set(file, data)
+                readJson.cache.set(file, data)
                 cb(null, data)
 }
 
