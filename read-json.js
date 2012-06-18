@@ -271,7 +271,8 @@ function bins_ (file, data, bins, cb) {
                 var m = data.directories && data.directories.bin
                 data.bin = bins.reduce(function (acc, mf) {
                                 if (mf && mf.charAt(0) !== '.') {
-                                                acc[mf] = path.join(m, mf)
+                                                var f = path.basename(mf)
+                                                acc[f] = path.join(m, mf)
                                 }
                                 return acc
                 }, {})
