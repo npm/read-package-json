@@ -340,6 +340,13 @@ function typoWarn (file, data) {
                 })
                 bugsTypoWarn(file, data)
                 scriptTypoWarn(file, data)
+                noreadmeWarn(file, data)
+}
+
+function noreadmeWarn (file, data) {
+                if (data.readme) return;
+                warn(file, data, "No README.md file found!")
+                data.readme = "ERROR: No README.md file found!"
 }
 
 function checkTypo (file, data, d) {
