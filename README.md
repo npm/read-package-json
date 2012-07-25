@@ -23,7 +23,7 @@ readJson('/path/to/package.json', function (er, data) {
     return
   }
 
-  console.error('the package data is', data)
+  console.log('the package data is', data)
 }
 ```
 
