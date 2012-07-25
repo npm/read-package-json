@@ -230,7 +230,7 @@ function readme (file, data, cb) {
                 var globOpts = { cwd: dir, nocase: true }
                 glob("README?(.*)", globOpts, function (er, files) {
                                 if (er) return cb(er);
-                                if (!files.length) return cb()
+                                if (!files.length) return cb();
                                 var rm = path.resolve(dir, files[0])
                                 readme_(file, data, rm, cb)
                 })
