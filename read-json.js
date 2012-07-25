@@ -333,8 +333,6 @@ function parseError (ex, file) {
 
 // a warning for deprecated or likely-incorrect fields
 function typoWarn (file, data) {
-                if (typoWarned[data._id]) return;
-                typoWarned[data._id] = true
                 if (data.modules) {
                                 warn(file, data,
                                      "'modules' is deprecated")
@@ -346,6 +344,7 @@ function typoWarn (file, data) {
                 bugsTypoWarn(file, data)
                 scriptTypoWarn(file, data)
                 noreadmeWarn(file, data)
+                typoWarned[data._id] = true
 }
 
 function noreadmeWarn (file, data) {
@@ -489,6 +488,7 @@ function depObjectify (file, data, deps) {
 
 
 function warn (f, d, m) {
+                if (typoWarned[d._id]) return;
                 readJson.log.warn("package.json", d._id, m)
 }
 
