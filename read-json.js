@@ -81,17 +81,12 @@ function readJson_ (file, cb) {
                                                 return
                                 }
                                 if (er) return cb(er);
-                                if (!/\.json$/.test(file)) {
-                                                d = parseIndex(d)
-                                                if (!d) return cb(new Error('Error parsing ' + file))
-                                                extras(file, d, cb)
-                                                return
-                                }
                                 try {
                                                 d = JSON.parse(d)
                                 } catch (er) {
+                                                d = parseIndex(d)
                                                 er = parseError(er, file);
-                                                return cb(er);
+                                                if (!d) return cb(er);
                                 }
                                 extras(file, d, cb)
                 })
