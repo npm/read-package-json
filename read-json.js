@@ -76,20 +76,23 @@ function readJson (file, cb) {
 
 function readJson_ (file, cb) {
                 fs.readFile(file, "utf8", function (er, d) {
-                                if (er && er.code === "ENOENT") {
-                                                indexjs(file, er, cb)
-                                                return
-                                }
-                                if (er) return cb(er);
-                                try {
-                                                d = JSON.parse(d)
-                                } catch (er) {
-                                                d = parseIndex(d)
-                                                er = parseError(er, file);
-                                                if (!d) return cb(er);
-                                }
-                                extras(file, d, cb)
+                                parseJson(file, er, d, cb)
                 })
+}
+
+function parseJson (file, er, d, cb) {
+                if (er && er.code === "ENOENT") {
+                                indexjs(file, er, cb)
+                                return
+                }
+                if (er) return cb(er);
+                try {
+                                d = JSON.parse(d)
+                } catch (er) {
+                                d = parseIndex(d)
+                                if (!d) return cb(parseError(er, file));
+                }
+                extras(file, d, cb)
 }
 
 
