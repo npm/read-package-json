@@ -22,6 +22,6 @@
   },
   "optionalDependencies": {
     "npmlog": "0",
-    "graceful-fs": "~1.1.8"
+    "graceful-fs": "~1.2"
   }
 }
