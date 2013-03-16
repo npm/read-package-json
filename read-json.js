@@ -516,7 +516,9 @@ function depObjectify (file, data, deps) {
                 }
                 if (!Array.isArray(deps)) return deps
                 var o = {}
-                deps.forEach(function (d) {
+                deps.filter(function (d) {
+                                return typeof d === "string"
+                }).forEach(function(d) {
                                 d = d.trim().split(/(:?[@\s><=])/)
                                 var dn = d.shift()
                                 var dv = d.join("")
