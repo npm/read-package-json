@@ -560,6 +560,7 @@ function validName (file, data) {
                 }
                 data.name = data.name.trim()
                 if (data.name.charAt(0) === "." ||
+                    data.name.charAt(0) === "_" ||
                     data.name.match(/[\/@\s\+%:]/) ||
                     data.name !== encodeURIComponent(data.name) ||
                     data.name.toLowerCase() === "node_modules" ||
