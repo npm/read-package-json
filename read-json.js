@@ -31,7 +31,6 @@ var semver = require("semver")
 // put more stuff on here to customize.
 readJson.extraSet = [
                 gypfile,
-                wscript,
                 serverjs,
                 authors,
                 readme,
@@ -159,25 +158,6 @@ function gypfile_ (file, data, files, cb) {
                 s.install = "node-gyp rebuild"
                 data.scripts = s
                 data.gypfile = true
-                return cb(null, data);
-}
-
-function wscript (file, data, cb) {
-                var dir = path.dirname(file)
-                var s = data.scripts || {}
-                if (s.install || s.preinstall) {
-                                return cb(null, data);
-                }
-                glob("wscript", { cwd: dir }, function (er, files) {
-                                if (er) return cb(er);
-                                wscript_(file, data, files, cb)
-                })
-}
-function wscript_ (file, data, files, cb) {
-                if (!files.length || data.gypfile) return cb(null, data);
-                var s = data.scripts || {}
-                s.install = "node-waf clean ; node-waf configure build"
-                data.scripts = s
                 return cb(null, data);
 }
 
