@@ -535,12 +535,9 @@ function warn (f, d, m) {
 
 
 function validName (file, data) {
-                if (!data.name) {
-                                data.name = ""
-                                return true
-                }
                 data.name = data.name.trim()
-                if (data.name.charAt(0) === "." ||
+                if (!data.name ||
+                    data.name.charAt(0) === "." ||
                     data.name.match(/[\/@\s\+%:]/) ||
                     data.name !== encodeURIComponent(data.name) ||
                     data.name.toLowerCase() === "node_modules" ||
