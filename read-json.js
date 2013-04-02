@@ -389,7 +389,12 @@ function typoWarn (file, data) {
 }
 
 function noreadmeWarn (file, data) {
-                if (data.readme) return;
+                if (data.readme && data.readme.length > 0) return;
+                if (typeof data.readme === 'string') {
+                                warn(file, data, "README file is empty!")
+                                data.readme = "ERROR: README file is empty!"
+                                return
+                }
                 warn(file, data, "No README.md file found!")
                 data.readme = "ERROR: No README.md file found!"
 }
