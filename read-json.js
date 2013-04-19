@@ -517,12 +517,16 @@ function depObjectify (file, data, deps) {
                 if (!Array.isArray(deps)) return deps
                 var o = {}
                 deps.forEach(function (d) {
+                                if (typeof d === "string") {
+                                                
                                 d = d.trim().split(/(:?[@\s><=])/)
                                 var dn = d.shift()
                                 var dv = d.join("")
                                 dv = dv.trim()
                                 dv = dv.replace(/^@/, "")
                                 o[dn] = dv
+                                
+                                }
                 })
                 return o
 }
