@@ -26,7 +26,7 @@ var path = require("path")
 var glob = require("glob")
 var slide = require("slide")
 var asyncMap = slide.asyncMap
-var semver = require("semver")
+var normalizeData = require("normalize-package-data")
 
 // put more stuff on here to customize.
 readJson.extraSet = [
@@ -40,30 +40,6 @@ readJson.extraSet = [
 ]
 
 var typoWarned = {}
-// http://registry.npmjs.org/-/fields
-var typos = { "dependancies": "dependencies"
-            , "dependecies": "dependencies"
-            , "depdenencies": "dependencies"
-            , "devEependencies": "devDependencies"
-            , "depends": "dependencies"
-            , "dev-dependencies": "devDependencies"
-            , "devDependences": "devDependencies"
-            , "devDepenencies": "devDependencies"
-            , "devdependencies": "devDependencies"
-            , "repostitory": "repository"
-            , "prefereGlobal": "preferGlobal"
-            , "hompage": "homepage"
-            , "hampage": "homepage"
-            , "autohr": "author"
-            , "autor": "author"
-            , "contributers": "contributors"
-            , "publicationConfig": "publishConfig"
-            }
-var bugsTypos = { "web": "url", "name": "url" }
-var scriptTypos = { "server": "start", "tests": "test" }
-var depTypes = [ "dependencies"
-               , "devDependencies"
-               , "optionalDependencies" ]
 
 
 function readJson (file, cb) {
@@ -143,8 +119,11 @@ function extras (file, data, cb) {
 function gypfile (file, data, cb) {
                 var dir = path.dirname(file)
                 var s = data.scripts || {}
-                if (s.install === "node-gyp rebuild" && !s.preinstall)
-                                data.gypfile = true
+                // this is now done in normalize-package-data, since it does not
+                // depend on any file data, nor does any code here read
+                // data.gypfile.
+                // if (s.install === "node-gyp rebuild" && !s.preinstall)
+                //               data.gypfile = true
                 if (s.install || s.preinstall)
                                 return cb(null, data);
                 glob("*.gyp", { cwd: dir }, function (er, files) {
@@ -318,32 +297,28 @@ function githead_ (file, data, dir, head, cb) {
 }
 
 function final (file, data, cb) {
-                var ret = validName(file, data)
-                if (ret !== true) return cb(ret);
-                ret = validVersion(file, data)
-                if (ret !== true) return cb(ret);
-
-                data._id = data.name + "@" + data.version
-                typoWarn(file, data)
-                validRepo(file, data)
-                validFiles(file, data)
-                validBin(file, data)
-                validMan(file, data)
-                validBundled(file, data)
-                objectifyDeps(file, data)
-                unParsePeople(file, data)
-                parsePeople(file, data)
-
-                if (data.description &&
-                    typeof data.description !== 'string') {
-                                warn(file, data,
-                                     "'description' field should be a string")
-                                delete data.description
+                // This warn function requires data._id to be set, which could
+                // very well not be the case at the time normalizeData runs for
+                // the first time on this data.
+                // Warnings generated before normalizeData sets data._id will
+                // have an id of null, which might be problematic.
+                var warn = function(msg) { 
+                                if (typoWarned[data._id]) return;
+                                readJson.log.warn("package.json", data._id, msg)
                 }
-
-                if (data.readme && !data.description)
-                                readmeDescription(file, data)
-
+                try {
+                                normalizeData(data, warn)
+                }
+                catch (error) {
+                                return cb(error)
+                }
+                // Package data about a particular package (identified by _id)
+                // can be normalized any number of times.
+                // When normalizeData function has run once, however, the warn
+                // function that is passed effectively becomes a noop.
+                // Note that normalizeData actually sets data._id
+                // After normalizeData has run, data._id is guaranteed to exist.
+                typoWarned[data._id] = true
                 readJson.cache.set(file, data)
                 cb(null, data)
 }
@@ -370,243 +345,4 @@ function parseError (ex, file) {
                 e.code = "EJSONPARSE"
                 e.file = file
                 return e
-}
-
-// a warning for deprecated or likely-incorrect fields
-function typoWarn (file, data) {
-                if (data.modules) {
-                                warn(file, data,
-                                     "'modules' is deprecated")
-                                delete data.modules
-                }
-                Object.keys(typos).forEach(function (d) {
-                                checkTypo(file, data, d)
-                })
-                bugsTypoWarn(file, data)
-                scriptTypoWarn(file, data)
-                noreadmeWarn(file, data)
-                typoWarned[data._id] = true
-}
-
-function noreadmeWarn (file, data) {
-                if (data.readme) return;
-                warn(file, data, "No README.md file found!")
-                data.readme = "ERROR: No README.md file found!"
-}
-
-function checkTypo (file, data, d) {
-                if (!data.hasOwnProperty(d)) return;
-                warn(file, data,
-                     "'" + d + "' should probably be '" + typos[d] + "'" )
-}
-
-function bugsTypoWarn (file, data) {
-                var b = data.bugs
-                if (!b || typeof b !== "object") return
-                Object.keys(b).forEach(function (k) {
-                                if (bugsTypos[k]) {
-                                                b[bugsTypos[k]] = b[k]
-                                                delete b[k]
-                                }
-                })
-}
-
-function scriptTypoWarn (file, data) {
-                var s = data.scripts
-                if (!s || typeof s !== "object") return
-                Object.keys(s).forEach(function (k) {
-                                if (scriptTypos[k]) {
-                                                scriptWarn_(file, data, k)
-                                }
-                })
-}
-function scriptWarn_ (file, data, k) {
-                warn(file, data, "scripts['" + k + "'] should probably " +
-                     "be scripts['" + scriptTypos[k] + "']")
-}
-
-function validRepo (file, data) {
-                if (data.repostories) {
-                                warnRepositories(file, data)
-                }
-                if (!data.repository) return;
-                if (typeof data.repository === "string") {
-                                data.repository = {
-                                                type: "git",
-                                                url: data.repository
-                                }
-                }
-                var r = data.repository.url || ""
-                // use the non-private urls
-                r = r.replace(/^(https?|git):\/\/[^\@]+\@github.com/,
-                              '$1://github.com')
-                r = r.replace(/^https?:\/\/github.com/,
-                              'git://github.com')
-                if (r.match(/github.com\/[^\/]+\/[^\/]+\.git\.git$/)) {
-                                warn(file, data, "Probably broken git " +
-                                     "url: " + r)
-                }
-}
-function warnRepostories (file, data) {
-                warn(file, data,
-                     "'repositories' (plural) Not supported.\n" +
-                     "Please pick one as the 'repository' field");
-                data.repository = data.repositories[0]
-}
-
-function validFiles (file, data) {
-                var files = data.files
-                if (files && !Array.isArray(files)) {
-                                warn(file, data, "Invalid 'files' member")
-                                delete data.files
-                }
-}
-
-function validBin (file, data) {
-                if (!data.bin) return;
-                if (typeof data.bin === "string") {
-                                var b = {}
-                                b[data.name] = data.bin
-                                data.bin = b
-                }
-}
-
-function validMan (file, data) {
-                if (!data.man) return;
-                if (typeof data.man === "string") {
-                                data.man = [ data.man ]
-                }
-}
-
-function validBundled (file, data) {
-                var bdd = "bundledDependencies"
-                var bd = "bundleDependencies"
-                if (data[bdd] && !data[bd]) {
-                                data[bd] = data[bdd]
-                                delete data[bdd]
-                }
-
-                if (data[bd] && !Array.isArray(data[bd])) {
-                                warn(file, data, "bundleDependencies " +
-                                     "must be an array")
-                }
-}
-
-function objectifyDeps (file, data) {
-                depTypes.forEach(function (d) {
-                                objectifyDep_(file, data, d)
-                })
-
-                var o = data.optionalDependencies
-                if (!o) return;
-                var d = data.dependencies || {}
-                Object.keys(o).forEach(function (k) {
-                                d[k] = o[k]
-                })
-                data.dependencies = d
-}
-function objectifyDep_ (file, data, type) {
-                if (!data[type]) return;
-                data[type] = depObjectify(file, data, data[type])
-}
-function depObjectify (file, data, deps) {
-                if (!deps) return {}
-                if (typeof deps === "string") {
-                                deps = deps.trim().split(/[\n\r\s\t ,]+/)
-                }
-                if (!Array.isArray(deps)) return deps
-                var o = {}
-                deps.filter(function (d) {
-                                return typeof d === "string"
-                }).forEach(function(d) {
-                                d = d.trim().split(/(:?[@\s><=])/)
-                                var dn = d.shift()
-                                var dv = d.join("")
-                                dv = dv.trim()
-                                dv = dv.replace(/^@/, "")
-                                o[dn] = dv
-                })
-                return o
-}
-
-
-function warn (f, d, m) {
-                if (typoWarned[d._id]) return;
-                readJson.log.warn("package.json", d._id, m)
-}
-
-
-function validName (file, data) {
-                if (!data.name) {
-                                data.name = ""
-                                return true
-                }
-                data.name = data.name.trim()
-                if (data.name.charAt(0) === "." ||
-                    data.name.match(/[\/@\s\+%:]/) ||
-                    data.name !== encodeURIComponent(data.name) ||
-                    data.name.toLowerCase() === "node_modules" ||
-                    data.name.toLowerCase() === "favicon.ico") {
-                                var m = "Invalid name: "
-                                m += JSON.stringify(data.name)
-                                return new Error(m)
-                }
-                return true
-}
-
-
-function parseKeywords (file, data) {
-                var kw = data.keywords
-                if (typeof kw === "string") {
-                                kw = kw.split(/,\s+/)
-                                data.keywords = kw
-                }
-}
-
-function validVersion (file, data) {
-                var v = data.version
-                if (!v) {
-                                data.version = ""
-                                return true
-                }
-                if (!semver.valid(v)) {
-                                return new Error("invalid version: "+v)
-                }
-                data.version = semver.clean(data.version)
-                return true
-}
-function unParsePeople (file, data) {
-                return parsePeople(file, data, true)
-}
-
-function parsePeople (file, data, un) {
-                var fn = un ? unParsePerson : parsePerson
-                if (data.author) data.author = fn(data.author)
-                ;["maintainers", "contributors"].forEach(function (set) {
-                                if (!Array.isArray(data[set])) return;
-                                data[set] = data[set].map(fn)
-                })
-                return data
-}
-
-function unParsePerson (person) {
-                if (typeof person === "string") return person
-                var name = person.name || ""
-                var u = person.url || person.web
-                var url = u ? (" ("+u+")") : ""
-                var e = person.email || person.mail
-                var email = e ? (" <"+e+">") : ""
-                return name+email+url
-}
-
-function parsePerson (person) {
-                if (typeof person !== "string") return person
-                var name = person.match(/^([^\(<]+)/)
-                var url = person.match(/\(([^\)]+)\)/)
-                var email = person.match(/<([^>]+)>/)
-                var obj = {}
-                if (name && name[0].trim()) obj.name = name[0].trim()
-                if (email) obj.email = email[1];
-                if (url) obj.url = url[1];
-                return obj
 }
