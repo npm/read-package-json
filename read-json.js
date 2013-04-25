@@ -292,14 +292,10 @@ function githead_ (file, data, dir, head, cb) {
 }
 
 function final (file, data, cb) {
-                // This warn function requires data._id to be set, which could
-                // very well not be the case at the time normalizeData runs for
-                // the first time on this data.
-                // Warnings generated before normalizeData sets data._id will
-                // have an id of null, which might be problematic.
-                var warn = function(msg) { 
-                                if (typoWarned[data._id]) return;
-                                readJson.log.warn("package.json", data._id, msg)
+                var pId = makePackageId(data)
+                function warn(msg) { 
+                                if (typoWarned[pId]) return;
+                                readJson.log.warn("package.json", pId, msg)
                 }
                 try {
                                 normalizeData(data, warn)
@@ -307,17 +303,19 @@ function final (file, data, cb) {
                 catch (error) {
                                 return cb(error)
                 }
-                // Package data about a particular package (identified by _id)
-                // can be normalized any number of times.
-                // When normalizeData function has run once, however, the warn
-                // function that is passed effectively becomes a noop.
-                // Note that normalizeData actually sets data._id
-                // After normalizeData has run, data._id is guaranteed to exist.
-                typoWarned[data._id] = true
+                typoWarned[pId] = true
                 readJson.cache.set(file, data)
                 cb(null, data)
 }
 
+function makePackageId (data) {
+                return cleanString(data.name) + "@" + cleanString(data.version)
+}
+
+function cleanString(str) {
+                if(!str || typeof(str) !== "string") return ""
+                return str.trim()
+}
 
 // /**package { "name": "foo", "version": "1.2.3", ... } **/
 function parseIndex (data) {
