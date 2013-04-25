@@ -119,11 +119,6 @@ function extras (file, data, cb) {
 function gypfile (file, data, cb) {
                 var dir = path.dirname(file)
                 var s = data.scripts || {}
-                // this is now done in normalize-package-data, since it does not
-                // depend on any file data, nor does any code here read
-                // data.gypfile.
-                // if (s.install === "node-gyp rebuild" && !s.preinstall)
-                //               data.gypfile = true
                 if (s.install || s.preinstall)
                                 return cb(null, data);
                 glob("*.gyp", { cwd: dir }, function (er, files) {
