@@ -143,7 +143,9 @@ function extras (file, data, cb) {
 function gypfile (file, data, cb) {
                 var dir = path.dirname(file)
                 var s = data.scripts || {}
-                if (s.install === "node-gyp rebuild" && !s.preinstall)
+                if (typeof s.install === "string" &&
+                    ~s.install.indexOf("node-gyp rebuild") &&
+                    !s.preinstall)
                                 data.gypfile = true
                 if (s.install || s.preinstall)
                                 return cb(null, data);
