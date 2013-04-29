@@ -24,8 +24,6 @@ var LRU = require("lru-cache")
 readJson.cache = new LRU({max: 1000})
 var path = require("path")
 var glob = require("glob")
-var slide = require("slide")
-var asyncMap = slide.asyncMap
 var normalizeData = require("normalize-package-data")
 
 // put more stuff on here to customize.
@@ -108,12 +106,17 @@ function indexjs (file, er, cb) {
 
 readJson.extras = extras
 function extras (file, data, cb) {
-                asyncMap(readJson.extraSet, function (fn, cb) {
-                                return fn(file, data, cb)
-                }, function (er) {
-                                if (er) return cb(er);
-                                final(file, data, cb)
+                var set = readJson.extraSet
+                var n = set.length
+                var errState = null
+                set.forEach(function (fn) {
+                                fn(file, data, then)
                 })
+                function then(er) {
+                                if (errState) return;
+                                if (er) return cb(errState = er);
+                                if (--n === 0) final(file, data, cb);
+                }
 }
 
 function gypfile (file, data, cb) {
