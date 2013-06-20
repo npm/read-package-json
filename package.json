@@ -20,7 +20,6 @@
     "tap": "~0.2.5"
   },
   "optionalDependencies": {
-    "npmlog": "0",
     "graceful-fs": "~1.2"
   }
 }
