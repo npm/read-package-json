@@ -29,16 +29,16 @@ readJson.extraSet = [
 var typoWarned = {}
 
 
-function readJson (file, log, strict, cb) {
-                if (typeof cb !== 'function') {
-                                cb = strict
-                                strict = false
+function readJson (file, log_, strict_, cb_) {
+                var log, strict, cb
+                for (var i = 1; i < arguments.length - 1; i++) {
+                                if (typeof arguments[i] === 'boolean')
+                                                strict = arguments[i]
+                                else if (typeof arguments[i] === 'function')
+                                                log = arguments[i]
                 }
-
-                if (typeof cb !== 'function') {
-                                cb = log
-                                log = function() {}
-                }
+                if (!log) log = function () {};
+                cb = arguments[ arguments.length - 1 ]
 
                 var c = readJson.cache.get(file)
                 if (c) {
@@ -102,9 +102,15 @@ function indexjs (file, er, log, strict, cb) {
 
 
 readJson.extras = extras
-function extras (file, data, log, strict, cb) {
-                if (typeof cb !== "function") cb = strict, strict = false;
-                if (typeof cb !== "function") cb = log, log = function() {}
+function extras (file, data, log_, strict_, cb_) {
+                var log, strict, cb
+                for (var i = 2; i < arguments.length - 1; i++) {
+                                if (typeof arguments[i] === 'boolean')
+                                                strict = arguments[i]
+                                else if (typeof arguments[i] === 'function')
+                                                log = arguments[i]
+                }
+                cb = arguments[i]
                 var set = readJson.extraSet
                 var n = set.length
                 var errState = null
@@ -298,7 +304,7 @@ function final (file, data, log, strict, cb) {
                 var pId = makePackageId(data)
                 function warn(msg) {
                                 if (typoWarned[pId]) return;
-                                log("package.json", pId, msg)
+                                if (log) log("package.json", pId, msg);
                 }
                 try {
                                 normalizeData(data, warn, strict)
