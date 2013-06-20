@@ -103,6 +103,8 @@ function indexjs (file, er, log, strict, cb) {
 
 readJson.extras = extras
 function extras (file, data, log, strict, cb) {
+                if (typeof cb !== "function") cb = strict, strict = false;
+                if (typeof cb !== "function") cb = log, log = function() {}
                 var set = readJson.extraSet
                 var n = set.length
                 var errState = null
