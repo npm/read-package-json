@@ -21,5 +21,11 @@
   },
   "optionalDependencies": {
     "graceful-fs": "2"
-  }
+  },
+  "licenses": [
+    {
+      "type": "BSD",
+      "url": "https://raw.github.com/isaacs/read-package-json/master/LICENSE"
+    }
+  ]
 }
