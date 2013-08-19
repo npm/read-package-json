@@ -21,5 +21,6 @@
   },
   "optionalDependencies": {
     "graceful-fs": "2"
-  }
+  },
+  "license": "ISC"
 }
