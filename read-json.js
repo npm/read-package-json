@@ -134,6 +134,9 @@ function scriptpath (file, data, cb) {
 }
 function scriptpath_(key) {
                 s = this[key]
+                // This is never allowed, and only causes problems
+                if (typeof s !== 'string')
+                                return delete this[key]
                 var spre = /^(\.[\/\\])?node_modules[\/\\].bin[\\\/]/
                 if (s.match(spre))
                                 this[key] = this[key].replace(spre, '')
