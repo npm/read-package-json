@@ -332,9 +332,10 @@ function final (file, data, log, strict, cb) {
 }
 
 function makePackageId (data) {
-                return cleanString(data.name) + "@" + cleanString(data.version)
+                var name = cleanString(data.name)
+                var ver = cleanString(data.version)
+                return name + "@" + ver
 }
-
 function cleanString(str) {
                 return (!str || typeof(str) !== "string") ? "" : str.trim()
 }
