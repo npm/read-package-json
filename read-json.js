@@ -111,6 +111,7 @@ function extras (file, data, log_, strict_, cb_) {
                                 else if (typeof arguments[i] === 'function')
                                                 log = arguments[i]
                 }
+                if (!log) log = function () {};
                 cb = arguments[i]
                 var set = readJson.extraSet
                 var n = set.length
