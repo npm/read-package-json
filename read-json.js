@@ -84,7 +84,24 @@ function parseJson (file, er, d, log, strict, cb) {
                                 d = parseIndex(d)
                                 if (!d) return cb(parseError(er, file));
                 }
-                extras(file, d, log, strict, cb)
+                normalize(file, d, log, strict, cb)
+}
+
+function normalize (file, data, log, strict, cb) {
+                var pId = makePackageId(data)
+                function warn(msg) {
+                                if (typoWarned[pId]) return;
+                                if (log) log("package.json", pId, msg);
+                }
+                try {
+                                normalizeData(data, warn, strict)
+                }
+                catch (error) {
+                                return cb(error)
+                }
+                typoWarned[pId] = true
+
+                extras(file, data, log, strict, pId, cb)
 }
 
 
@@ -103,7 +120,7 @@ function indexjs (file, er, log, strict, cb) {
 
 
 readJson.extras = extras
-function extras (file, data, log_, strict_, cb_) {
+function extras (file, data, log_, strict_, pId, cb_) {
                 var log, strict, cb
                 for (var i = 2; i < arguments.length - 1; i++) {
                                 if (typeof arguments[i] === 'boolean')
@@ -123,7 +140,7 @@ function extras (file, data, log_, strict_, cb_) {
                                 if (errState) return;
                                 if (er) return cb(errState = er);
                                 if (--n > 0) return;
-                                final(file, data, log, strict, cb);
+                                final(file, data, log, strict, pId, cb);
                 }
 }
 
@@ -318,19 +335,7 @@ function githead_ (file, data, dir, head, cb) {
                 })
 }
 
-function final (file, data, log, strict, cb) {
-                var pId = makePackageId(data)
-                function warn(msg) {
-                                if (typoWarned[pId]) return;
-                                if (log) log("package.json", pId, msg);
-                }
-                try {
-                                normalizeData(data, warn, strict)
-                }
-                catch (error) {
-                                return cb(error)
-                }
-                typoWarned[pId] = true
+function final (file, data, log, strict, pId, cb) {
                 readJson.cache.set(file, data)
                 cb(null, data)
 }
