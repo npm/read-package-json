@@ -230,7 +230,7 @@ function readmeDescription (file, data) {
 function readme (file, data, cb) {
                 if (data.readme) return cb(null, data);
                 var dir = path.dirname(file)
-                var globOpts = { cwd: dir, nocase: true, mark: true }
+                var globOpts = { cwd: dir, nocase: true, mark: true, sync: true }
                 glob("README?(.*)", globOpts, function (er, files) {
                                 if (er) return cb(er);
                                 // don't accept directories.
