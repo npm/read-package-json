@@ -238,9 +238,20 @@ function readme (file, data, cb) {
                                                 return !file.match(/\/$/)
                                 })
                                 if (!files.length) return cb();
-                                var rm = path.resolve(dir, files[0])
+                                var fn = readme_prefer(files)
+                                var rm = path.resolve(dir, fn)
                                 readme_(file, data, rm, cb)
                 })
+}
+function readme_prefer(files) {
+                var fallback = 0;
+                files.forEach(function (file, i) {
+                                if (file.match(/\.md$/i)) return file
+                                else if (file.match(/README$/)) fallback = i
+                })
+                // prefer README.md, followed by README; otherwise, return
+                // the first filename (which could be README)
+                return files[fallback];
 }
 function readme_(file, data, rm, cb) {
                 var rmfn = path.basename(rm);
