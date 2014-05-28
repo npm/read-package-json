@@ -30,11 +30,13 @@ readJson.extraSet = [
 var typoWarned = {}
 
 
-function readJson (file, log_, strict_, cb_) {
-                var log, strict, cb
+function readJson (file, log_, strict_, cache_, cb_) {
+                var log, strict, cache, cb
                 for (var i = 1; i < arguments.length - 1; i++) {
                                 if (typeof arguments[i] === 'boolean')
-                                                strict = arguments[i]
+                                   (typeof strict !== 'boolean' ?
+                                                strict = arguments[i] :
+                                                cache = arguments[i])
                                 else if (typeof arguments[i] === 'function')
                                                 log = arguments[i]
                 }
