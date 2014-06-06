@@ -20,7 +20,7 @@
     "tap": "~0.2.5"
   },
   "optionalDependencies": {
-    "graceful-fs": "2"
+    "graceful-fs": "2 || 3"
   },
   "license": "ISC"
 }
