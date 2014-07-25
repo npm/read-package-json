@@ -14,7 +14,7 @@
   "dependencies": {
     "glob": "^4.0.2",
     "lru-cache": "2",
-    "normalize-package-data": "^0.4.0"
+    "normalize-package-data": "0.4"
   },
   "devDependencies": {
     "tap": "~0.2.5"
