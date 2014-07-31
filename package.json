@@ -15,7 +15,7 @@
     "github-url-from-git": "^1.2.0",
     "glob": "^4.0.2",
     "lru-cache": "2",
-    "normalize-package-data": "0.4"
+    "normalize-package-data": "^1.0.0"
   },
   "devDependencies": {
     "tap": "~0.2.5"
