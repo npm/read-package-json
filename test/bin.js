@@ -12,7 +12,6 @@ var createWarningCollector = function () {
         return warn
 }
 
-console.error("Bin test")
 tap.test("Bin test", function (t) {
                 var p = path.resolve(__dirname, "fixtures/bin.json")
                 var warn = createWarningCollector()
@@ -29,6 +28,16 @@ tap.test("Bad bin test", function (t) {
                 readJson(p, warn, function (er, data) {
                                 t.equals(warn.warnings.length, 1)
                                 t.equals(warn.warnings[0][2], "No bin file found at ./bin/typo")
+                                t.end()
+                })
+})
+
+tap.test("Empty bin test", function (t) {
+                var p = path.resolve(__dirname, "fixtures/emptybin.json")
+                var warn = createWarningCollector()
+                readJson(p, warn, function (er, data) {
+                                t.equals(warn.warnings.length, 0)
+                                t.same(data.bin, {}, "no mapping to bin because object was empty")
                                 t.end()
                 })
 })

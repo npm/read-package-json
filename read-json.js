@@ -341,6 +341,7 @@ function checkBinReferences_ (file, data, warn, cb) {
 
                 var keys = Object.keys(data.bin)
                 var keysLeft = keys.length
+                if (!keysLeft) return cb()
 
                 function handleExists(relName, result) {
                                 keysLeft--
