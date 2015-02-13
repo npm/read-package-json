@@ -14,6 +14,7 @@ readJson.cache = new LRU({max: 1000})
 var path = require("path")
 var glob = require("glob")
 var normalizeData = require("normalize-package-data")
+var JSON5 = require('json5')
 
 // put more stuff on here to customize.
 readJson.extraSet = [
@@ -79,7 +80,7 @@ function parseJson (file, er, d, log, strict, cb) {
                 }
                 if (er) return cb(er);
                 try {
-                                d = JSON.parse(stripBOM(d))
+                                d = JSON5.parse(stripBOM(d))
                 } catch (er) {
                                 d = parseIndex(d)
                                 if (!d) return cb(parseError(er, file));
@@ -395,7 +396,7 @@ function parseIndex (data) {
                 data = data[0]
                 data = data.replace(/^\s*\*/mg, "")
                 try {
-                                return JSON.parse(data)
+                                return JSON5.parse(data)
                 } catch (er) {
                                 return null
                 }
