@@ -20,7 +20,7 @@
     "normalize-package-data": "^1.0.0"
   },
   "devDependencies": {
-    "tap": "~0.2.5"
+    "tap": "^0.7.1"
   },
   "optionalDependencies": {
     "graceful-fs": "2 || 3"
