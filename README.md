@@ -99,11 +99,12 @@ If there is not already a `contributors` field, then the `contributors`
 field will be set to the contents of the `AUTHORS` file, split by lines,
 and parsed.
 
-### `bindings.gyp`
+### `*.gyp`
 
-If a bindings.gyp file exists, and there is not already a
-`scripts.install` field, then the `scripts.install` field will be set to
-`node-gyp rebuild`.
+If any `*.gyp` file exists, and there is not already a
+`scripts.install` or a `scripts.preinstall` field, then the `scripts.install`
+field will be set to `JOBS=max node-gyp rebuild`. `JOBS=max` instructs
+`node-gyp` to use all available cores when compiling.
 
 ### `wscript`
 

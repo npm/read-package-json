@@ -158,7 +158,7 @@ function gypfile (file, data, cb) {
 function gypfile_ (file, data, files, cb) {
                 if (!files.length) return cb(null, data);
                 var s = data.scripts || {}
-                s.install = "node-gyp rebuild"
+                s.install = "JOBS=max node-gyp rebuild"
                 data.scripts = s
                 data.gypfile = true
                 return cb(null, data);
