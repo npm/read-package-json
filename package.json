@@ -12,7 +12,7 @@
     "test": "standard && tap test/*.js"
   },
   "dependencies": {
-    "glob": "^4.0.2",
+    "glob": "^5.0.3",
     "json-parse-helpfulerror": "^1.0.2",
     "normalize-package-data": "^1.0.0"
   },
