@@ -16,7 +16,6 @@
     "github-url-from-username-repo": "~1.0.0",
     "glob": "^4.0.2",
     "json-parse-helpfulerror": "^1.0.2",
-    "lru-cache": "2",
     "normalize-package-data": "^1.0.0"
   },
   "devDependencies": {

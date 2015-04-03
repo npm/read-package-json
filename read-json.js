@@ -9,8 +9,6 @@ try {
 
 module.exports = readJson
 
-var LRU = require("lru-cache")
-readJson.cache = new LRU({max: 1000})
 var path = require("path")
 var glob = require("glob")
 var normalizeData = require("normalize-package-data")
@@ -42,15 +40,6 @@ function readJson (file, log_, strict_, cb_) {
                 if (!log) log = function () {};
                 cb = arguments[ arguments.length - 1 ]
 
-                var c = readJson.cache.get(file)
-                if (c) {
-                                cb = cb.bind(null, null, c)
-                                return process.nextTick(cb);
-                }
-                cb = (function (orig) { return function (er, data) {
-                                if (data) readJson.cache.set(file, data);
-                                return orig(er, data)
-                } })(cb)
                 readJson_(file, log, strict, cb)
 }
 
@@ -372,7 +361,6 @@ function final (file, data, log, strict, cb) {
                 }
                 checkBinReferences_(file, data, warn, function () {
                                 typoWarned[pId] = true
-                                readJson.cache.set(file, data)
                                 cb(null, data)
                 })
 }
