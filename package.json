@@ -14,7 +14,7 @@
   "dependencies": {
     "glob": "^5.0.3",
     "json-parse-helpfulerror": "^1.0.2",
-    "normalize-package-data": "^1.0.0"
+    "normalize-package-data": "^2.0.0"
   },
   "devDependencies": {
     "standard": "^3.3.1",
