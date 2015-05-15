@@ -9,7 +9,8 @@
   },
   "main": "read-json.js",
   "scripts": {
-    "test": "standard && tap test/*.js"
+    "pretest": "standard",
+    "test": "tap test/*.js"
   },
   "dependencies": {
     "glob": "^5.0.3",
