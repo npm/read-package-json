@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "standard": "^3.3.1",
-    "tap": "^0.7.1"
+    "tap": "^1.2.0"
   },
   "optionalDependencies": {
     "graceful-fs": "2 || 3"
