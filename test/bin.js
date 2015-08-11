@@ -22,6 +22,16 @@ tap.test('Bin test', function (t) {
   })
 })
 
+tap.test('Bin directory test', function (t) {
+  var p = path.resolve(__dirname, 'fixtures/directory-bin.json')
+  var warn = createWarningCollector()
+  readJson(p, warn, function (er, data) {
+    t.equals(warn.warnings.length, 0)
+    t.deepEqual(data.bin, {'echo': 'bin/echo'})
+    t.end()
+  })
+})
+
 tap.test('Bad bin test', function (t) {
   var p = path.resolve(__dirname, 'fixtures/badbin.json')
   var warn = createWarningCollector()
