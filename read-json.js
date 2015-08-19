@@ -283,7 +283,8 @@ function getPlatformBins (bin) {
         break
 
       default:
-        if (bin.default) _bin = bin.default
+        if (bin[ process.platform ]) _bin = bin[ process.platform ]
+        else if (bin.default) _bin = bin.default
         break
     }
   }
