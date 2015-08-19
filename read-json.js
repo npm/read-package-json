@@ -257,8 +257,8 @@ function bins (file, data, cb) {
 
   var m = data.directories && data.directories.bin
 
+  if (m) data.directories.bin = m = getBins(m)
   if (data.bin || !m) return cb(null, data)
-  data.directories.bin = m = getBins(data.directories.bin)
 
   m = path.resolve(path.dirname(file), m)
   glob('**', { cwd: m }, function (er, bins) {
