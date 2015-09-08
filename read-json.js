@@ -195,7 +195,7 @@ function readme (file, data, cb) {
   var dir = path.dirname(file)
 
   // use 'readmeFilename' if it is explicitly specified.
-  if( data.readmeFilename ) {
+  if (data.readmeFilename) {
     var srm = path.resolve(dir, data.readmeFilename)
     return readme_(file, data, srm, cb)
   }
