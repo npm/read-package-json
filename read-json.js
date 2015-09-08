@@ -193,6 +193,12 @@ function authors_ (file, data, ad, cb) {
 function readme (file, data, cb) {
   if (data.readme) return cb(null, data)
   var dir = path.dirname(file)
+
+  // use 'readmeFilename' if it is explicitly specified.
+  if( data.readmeFilename ) {
+    var srm = path.resolve(dir, data.readmeFilename)
+    return readme_(file, data, srm, cb)
+  }
   var globOpts = { cwd: dir, nocase: true, mark: true }
   glob('{README,README.*}', globOpts, function (er, files) {
     if (er) return cb(er)
