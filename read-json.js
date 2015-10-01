@@ -137,7 +137,7 @@ function gypfile (file, data, cb) {
   var s = data.scripts || {}
   if (s.install || s.preinstall) return cb(null, data)
 
-  glob('*.gyp', { cwd: dir }, function (er, files) {
+  glob('binding.gyp', { cwd: dir }, function (er, files) {
     if (er) return cb(er)
     gypfile_(file, data, files, cb)
   })

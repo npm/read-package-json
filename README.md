@@ -99,11 +99,10 @@ If there is not already a `contributors` field, then the `contributors`
 field will be set to the contents of the `AUTHORS` file, split by lines,
 and parsed.
 
-### `bindings.gyp`
+### `binding.gyp`
 
-If a bindings.gyp file exists, and there is not already a
-`scripts.install` field, then the `scripts.install` field will be set to
-`node-gyp rebuild`.
+If a `binding.gyp` file exists, and there is not already a `scripts.install`
+field, then the `scripts.install` field will be set to `node-gyp rebuild`.
 
 ### `wscript`
 
