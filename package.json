@@ -5,7 +5,7 @@
   "description": "The thing npm uses to read package.json files with semantics and defaults and validation",
   "repository": {
     "type": "git",
-    "url": "git://github.com/isaacs/read-package-json.git"
+    "url": "https://github.com/npm/read-package-json.git"
   },
   "main": "read-json.js",
   "scripts": {
