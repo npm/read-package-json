@@ -321,8 +321,17 @@ function checkBinReferences_ (file, data, warn, cb) {
   keys.forEach(function (key) {
     var dirName = path.dirname(file)
     var relName = data.bin[key]
-    var binPath = path.resolve(dirName, relName)
-    fs.exists(binPath, handleExists.bind(null, relName))
+    try {
+      var binPath = path.resolve(dirName, relName)
+      fs.exists(binPath, handleExists.bind(null, relName))
+    } catch (error) {
+      if (error instanceof TypeError && error.message === 'Arguments to path.resolve must be strings') {
+        keysLeft--
+        if (!keysLeft) cb()
+      } else {
+        throw error
+      }
+    }
   })
 }
 
