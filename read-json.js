@@ -10,6 +10,7 @@ var path = require('path')
 var glob = require('glob')
 var normalizeData = require('normalize-package-data')
 var safeJSON = require('json-parse-helpfulerror')
+var util = require('util')
 
 module.exports = readJson
 
@@ -332,8 +333,17 @@ function checkBinReferences_ (file, data, warn, cb) {
   keys.forEach(function (key) {
     var dirName = path.dirname(file)
     var relName = data.bin[key]
-    var binPath = path.resolve(dirName, relName)
-    fs.exists(binPath, handleExists.bind(null, relName))
+    try {
+      var binPath = path.resolve(dirName, relName)
+      fs.exists(binPath, handleExists.bind(null, relName))
+    } catch (error) {
+      if (error.message === 'Arguments to path.resolve must be strings' || error.message.indexOf('Path must be a string') === 0) {
+        warn('Bin filename for ' + key + ' is not a string: ' + util.inspect(relName))
+        handleExists(relName, true)
+      } else {
+        cb(error)
+      }
+    }
   })
 }
 
