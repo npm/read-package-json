@@ -325,7 +325,7 @@ function checkBinReferences_ (file, data, warn, cb) {
       var binPath = path.resolve(dirName, relName)
       fs.exists(binPath, handleExists.bind(null, relName))
     } catch (error) {
-      if (error instanceof TypeError && error.message === 'Arguments to path.resolve must be strings') {
+      if (error instanceof TypeError && (error.message === 'Arguments to path.resolve must be strings' || error.message.indexOf('Path must be a string') === 0)) {
         keysLeft--
         if (!keysLeft) cb()
       } else {
