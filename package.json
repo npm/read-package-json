@@ -17,7 +17,7 @@
     "normalize-package-data": "^2.0.0"
   },
   "devDependencies": {
-    "standard": "^3.3.1",
+    "standard": "^5.3.1",
     "tap": "^1.2.0"
   },
   "optionalDependencies": {
