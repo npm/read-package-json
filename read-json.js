@@ -193,6 +193,7 @@ function authors_ (file, data, ad, cb) {
 function readme (file, data, cb) {
   if (data.readme) return cb(null, data)
   var dir = path.dirname(file)
+  if (data.readmeFilename) return readme_(file, data, path.resolve(dir, data.readmeFilename), cb)
   var globOpts = { cwd: dir, nocase: true, mark: true }
   glob('{README,README.*}', globOpts, function (er, files) {
     if (er) return cb(er)
@@ -228,7 +229,7 @@ function readme_ (file, data, rm, cb) {
     // maybe not readable, or something.
     if (er) return cb()
     data.readme = rm
-    data.readmeFilename = rmfn
+    if (!data.readmeFilename) data.readmeFilename = rmfn
     return cb(er, data)
   })
 }
