@@ -8,6 +8,7 @@ try {
 var path = require('path')
 
 var glob = require('glob')
+var map = require('map-async')
 var normalizeData = require('normalize-package-data')
 var safeJSON = require('json-parse-helpfulerror')
 
@@ -173,10 +174,38 @@ function serverjs_ (file, data, files, cb) {
 function authors (file, data, cb) {
   if (data.contributors) return cb(null, data)
   var af = path.resolve(path.dirname(file), 'AUTHORS')
-  fs.readFile(af, 'utf8', function (er, ad) {
-    // ignore error.  just checking it.
+  fs.stat(af, function (er, stats) {
     if (er) return cb(null, data)
-    authors_(file, data, ad, cb)
+    else {
+      if (stats.isFile()) {
+        fs.readFile(af, 'utf8', function (er, ad) {
+          // ignore error.  just checking it.
+          if (er) return cb(null, data)
+          authors_(file, data, ad, cb)
+        })
+      } else if (stats.isDirectory()) {
+        glob(path.join(af, '*'), function (er, glob) {
+          if (er) cb(er)
+          else {
+            if (glob.length === 0) cb(null, data)
+            else {
+              map(glob, readFile, function (er, results) {
+                if (er) cb(er)
+                authors_(null, data, results.join('\n'), cb)
+              })
+            }
+          }
+        })
+      }
+      else return cb(null, data)
+    }
+  })
+}
+
+function readFile (path, cb) {
+  fs.readFile(path, 'utf8', function (er, ad) {
+    if (er) cb(er)
+    cb(null, ad)
   })
 }
 
