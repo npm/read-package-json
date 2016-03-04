@@ -139,6 +139,7 @@ function gypfile (file, data, cb) {
 
   glob('*.gyp', { cwd: dir }, function (er, files) {
     if (er) return cb(er)
+    if (data.gypfile === false) return cb(null, data)
     gypfile_(file, data, files, cb)
   })
 }
