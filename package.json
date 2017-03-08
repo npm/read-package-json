@@ -9,16 +9,16 @@
   },
   "main": "read-json.js",
   "scripts": {
-    "test": "standard && tap test/*.js"
+    "test": "standard && tap -J test/*.js"
   },
   "dependencies": {
-    "glob": "^6.0.0",
+    "glob": "^7.1.1",
     "json-parse-helpfulerror": "^1.0.2",
     "normalize-package-data": "^2.0.0"
   },
   "devDependencies": {
     "standard": "^5.3.1",
-    "tap": "^1.2.0"
+    "tap": "^10.3.0"
   },
   "optionalDependencies": {
     "graceful-fs": "^4.1.2"
