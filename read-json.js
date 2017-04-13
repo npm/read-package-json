@@ -263,9 +263,12 @@ function mans_ (file, data, mans, cb) {
 }
 
 function bins (file, data, cb) {
+  if (data.bin) data.bin = getBins(data.bin)
   if (Array.isArray(data.bin)) return bins_(file, data, data.bin, cb)
 
   var m = data.directories && data.directories.bin
+
+  if (m) data.directories.bin = m = getBins(m)
   if (data.bin || !m) return cb(null, data)
 
   m = path.resolve(path.dirname(file), m)
@@ -273,6 +276,44 @@ function bins (file, data, cb) {
     if (er) return cb(er)
     bins_(file, data, bins, cb)
   })
+}
+
+function getPlatformBins (bin) {
+  var _bin
+
+  if (typeof (bin) === 'object' && bin) {
+    switch (process.platform) {
+      case 'win32':
+        if (bin.win32) _bin = bin.win32
+        else if (bin.windows) _bin = bin.windows
+        break
+
+      case 'darwin':
+        if (bin.osx) _bin = bin.osx
+        else if (bin.darwin) _bin = bin.darwin
+        break
+
+      default:
+        if (bin[ process.platform ]) _bin = bin[ process.platform ]
+        else if (bin.default) _bin = bin.default
+        break
+    }
+  }
+
+  return _bin || bin.default || bin
+}
+
+function getBins (data) {
+  var ret,
+      isArray = true
+
+  if (!Array.isArray(data)) {
+    isArray = false
+    data = [ data ]
+  }
+
+  ret = data.map(getPlatformBins)
+  return (isArray) ? ret : ret[0]
 }
 
 function bins_ (file, data, bins, cb) {
