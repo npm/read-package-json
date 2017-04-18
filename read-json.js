@@ -135,7 +135,13 @@ function scriptpath (file, data, cb) {
 function scriptpath_ (key) {
   var s = this[key]
   // This is never allowed, and only causes problems
-  if (typeof s !== 'string') return delete this[key]
+  if (typeof s !== 'string') {
+    // easier to maintain and write sh via
+    // multiple lines joined via \n
+    if (!Array.isArray(s)) return delete this[key]
+    this[key] = s.join('\n')
+    s = this[key]
+  }
 
   var spre = /^(\.[/\\])?node_modules[/\\].bin[\\/]/
   if (s.match(spre)) {
