@@ -10,6 +10,7 @@ var path = require('path')
 var glob = require('glob')
 var normalizeData = require('normalize-package-data')
 var safeJSON = require('json-parse-helpfulerror')
+var stripJsonComments = require('strip-json-comments')
 
 module.exports = readJson
 
@@ -57,6 +58,12 @@ function stripBOM (content) {
   return content
 }
 
+function stripBOMAndComments (content) {
+  var bomLess = stripBOM(content)
+
+  return stripJsonComments(bomLess)
+}
+
 function parseJson (file, er, d, log, strict, cb) {
   if (er && er.code === 'ENOENT') {
     return fs.stat(path.dirname(file), function (err, stat) {
@@ -73,7 +80,7 @@ function parseJson (file, er, d, log, strict, cb) {
   if (er) return cb(er)
 
   try {
-    d = safeJSON.parse(stripBOM(d))
+    d = safeJSON.parse(stripBOMAndComments(d))
   } catch (er) {
     d = parseIndex(d)
     if (!d) return cb(parseError(er, file))
@@ -380,7 +387,7 @@ function parseIndex (data) {
   data = data.replace(/^\s*\*/mg, '')
 
   try {
-    return safeJSON.parse(data)
+    return safeJSON.parse(stripJsonComments(data))
   } catch (er) {
     return null
   }
