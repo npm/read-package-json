@@ -27,6 +27,7 @@ readJson.extraSet = [
 ]
 
 var typoWarned = {}
+var cache = {}
 
 function readJson (file, log_, strict_, cb_) {
   var log, strict, cb
@@ -73,14 +74,27 @@ function parseJson (file, er, d, log, strict, cb) {
   }
   if (er) return cb(er)
 
+  if (cache[d]) return cb(null, cache[d])
+
+  var data
+
   try {
-    d = safeJSON.parse(stripBOM(d))
+    data = safeJSON.parse(stripBOM(d))
   } catch (er) {
-    d = parseIndex(d)
-    if (!d) return cb(parseError(er, file))
+    data = parseIndex(d)
+    if (!data) return cb(parseError(er, file))
   }
 
-  extras(file, d, log, strict, cb)
+  extrasCached(file, d, data, log, strict, cb)
+}
+
+function extrasCached (file, d, data, log, strict, cb) {
+  extras(file, data, log, strict, (err, data) => {
+    if (!err) {
+      cache[d] = data
+    }
+    cb(err, data)
+  })
 }
 
 function indexjs (file, er, log, strict, cb) {
@@ -90,10 +104,12 @@ function indexjs (file, er, log, strict, cb) {
   fs.readFile(index, 'utf8', function (er2, d) {
     if (er2) return cb(er)
 
-    d = parseIndex(d)
-    if (!d) return cb(er)
+    if (cache[d]) return cb(null, cache[d])
 
-    extras(file, d, log, strict, cb)
+    var data = parseIndex(d)
+    if (!data) return cb(er)
+
+    extrasCached(file, d, data, log, strict, cb)
   })
 }
 
