@@ -23,5 +23,8 @@
   "optionalDependencies": {
     "graceful-fs": "^4.1.2"
   },
-  "license": "ISC"
+  "license": "ISC",
+  "files": [
+    "read-json.js"
+  ]
 }
