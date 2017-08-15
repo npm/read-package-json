@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "glob": "^7.1.1",
-    "json-parse-helpfulerror": "^1.0.2",
+    "json-parse-better-errors": "^1.0.0",
     "normalize-package-data": "^2.0.0"
   },
   "devDependencies": {
