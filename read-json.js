@@ -308,7 +308,7 @@ function bins (file, data, cb) {
   m = path.resolve(path.dirname(file), m)
   glob('**', { cwd: m }, function (er, bins) {
     if (er) return cb(er)
-    bins_(file, data, bins, cb)
+    bins_(file, data, bins.map(slash), cb)
   })
 }
 
