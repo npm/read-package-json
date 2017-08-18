@@ -11,6 +11,7 @@ var glob = require('glob')
 var normalizeData = require('normalize-package-data')
 var safeJSON = require('json-parse-better-errors')
 var util = require('util')
+var slash = require('slash')
 
 module.exports = readJson
 
@@ -307,7 +308,7 @@ function bins (file, data, cb) {
   m = path.resolve(path.dirname(file), m)
   glob('**', { cwd: m }, function (er, bins) {
     if (er) return cb(er)
-    bins_(file, data, bins, cb)
+    bins_(file, data, bins.map(slash), cb)
   })
 }
 
