@@ -35,7 +35,7 @@ if (isGit) {
     function testGitRepo (kind, extraRepoCommand, t) {
       var repoDirName = repoProjectName + '-' + kind
       var cmd = `cd ${__dirname} && git clone ${repo} ${repoDirName} && cd ${repoDirName}`
-      if (extraRepoCommand) cmd = cmd + ' && ' + extraRepoCommand
+      if (extraRepoCommand) cmd += ` && ${extraRepoCommand}`
       childProcess.execSync(cmd)
       repoDirs.push(repoDirName)
       var p = path.resolve(__dirname, repoDirName, 'package.json')
