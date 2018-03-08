@@ -9,7 +9,11 @@
   },
   "main": "read-json.js",
   "scripts": {
-    "test": "standard && tap -J test/*.js"
+    "prerelease": "npm t",
+    "postrelease": "npm publish && git push --follow-tags",
+    "pretest": "standard",
+    "release": "standard-version -s",
+    "test": "tap --nyc-arg=--all --coverage test/*.js"
   },
   "dependencies": {
     "glob": "^7.1.1",
@@ -19,6 +23,7 @@
   },
   "devDependencies": {
     "standard": "^9.0.1",
+    "standard-version": "^4.3.0",
     "tap": "^10.3.0"
   },
   "optionalDependencies": {

@@ -10,4 +10,6 @@ coverage.html
 .idea
 lib-cov
 
+.nyc_output
+
 node_modules
