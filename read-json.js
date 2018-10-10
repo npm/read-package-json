@@ -9,7 +9,7 @@ var path = require('path')
 
 var glob = require('glob')
 var normalizeData = require('normalize-package-data')
-var safeJSON = require('json-parse-better-errors')
+var json5 = require('json5')
 var util = require('util')
 var slash = require('slash')
 
@@ -98,7 +98,7 @@ function parseJson (file, er, d, log, strict, cb) {
   var data
 
   try {
-    data = safeJSON(stripBOM(d))
+    data = json5.parse(stripBOM(d))
   } catch (er) {
     data = parseIndex(d)
     if (!data) return cb(parseError(er, file))
@@ -442,7 +442,7 @@ function parseIndex (data) {
   data = data.replace(/^\s*\*/mg, '')
 
   try {
-    return safeJSON(data)
+    return json5.parse(data)
   } catch (er) {
     return null
   }

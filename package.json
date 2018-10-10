@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "glob": "^7.1.1",
-    "json-parse-better-errors": "^1.0.1",
+    "json5": "^2.1.0",
     "normalize-package-data": "^2.0.0",
     "slash": "^1.0.0"
   },
