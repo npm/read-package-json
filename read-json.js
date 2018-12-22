@@ -329,12 +329,18 @@ function githead (file, data, cb) {
   var dir = path.dirname(file)
   var head = path.resolve(dir, '.git/HEAD')
   fs.readFile(head, 'utf8', function (er, head) {
-    if (er) return cb(null, data)
-    githead_(file, data, dir, head, cb)
+    if (er) {
+      var parent = path.dirname(dir)
+      if (parent === dir) {
+        return cb(null, data)
+      }
+      return githead(dir, data, cb)
+    }
+    githead_(data, dir, head, cb)
   })
 }
 
-function githead_ (file, data, dir, head, cb) {
+function githead_ (data, dir, head, cb) {
   if (!head.match(/^ref: /)) {
     data.gitHead = head.trim()
     return cb(null, data)
