@@ -40,6 +40,7 @@ var expect = {
 tap.test('from css', function (t) {
   var c = path.join(__dirname, 'fixtures', 'not-json.css')
   readJson(c, function (er, d) {
+    delete d.gitHead
     t.same(d, expect)
     t.end()
   })
@@ -47,6 +48,7 @@ tap.test('from css', function (t) {
 
 tap.test('from js', function (t) {
   readJson(__filename, function (er, d) {
+    delete d.gitHead
     t.same(d, expect)
     t.end()
   })
