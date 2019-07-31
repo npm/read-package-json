@@ -17,6 +17,7 @@ module.exports = readJson
 
 // put more stuff on here to customize.
 readJson.extraSet = [
+  bundleDependencies,
   gypfile,
   serverjs,
   scriptpath,
@@ -321,6 +322,23 @@ function bins_ (file, data, bins, cb) {
     }
     return acc
   }, {})
+  return cb(null, data)
+}
+
+function bundleDependencies (file, data, cb) {
+  var bd = 'bundleDependencies'
+  var bdd = 'bundledDependencies'
+  // normalize key name
+  if (data[bdd] !== undefined) {
+    if (data[bd] === undefined) data[bd] = data[bdd]
+    delete data[bdd]
+  }
+  if (data[bd] === false) delete data[bd]
+  else if (data[bd] === true) {
+    data[bd] = Object.keys(data.dependencies || {})
+  } else if (data[bd] !== undefined && !Array.isArray(data[bd])) {
+    delete data[bd]
+  }
   return cb(null, data)
 }
 

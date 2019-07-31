@@ -1,0 +1,14 @@
+{
+  "name": "bundletrue",
+  "version": "1.2.3",
+  "dependencies": {
+    "a": ""
+  },
+  "optionalDependencies": {
+    "b": ""
+  },
+  "devDependencies": {
+    "c": ""
+  },
+  "bundledDependencies": true
+}
