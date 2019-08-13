@@ -403,17 +403,16 @@ function checkBinReferences_ (file, data, warn, cb) {
   keys.forEach(function (key) {
     var dirName = path.dirname(file)
     var relName = data.bin[key]
-    try {
-      var binPath = path.resolve(dirName, relName)
-      fs.stat(binPath, (err) => handleExists(relName, !err))
-    } catch (error) {
-      if (error.message === 'Arguments to path.resolve must be strings' || error.message.indexOf('Path must be a string') === 0) {
-        warn('Bin filename for ' + key + ' is not a string: ' + util.inspect(relName))
-        handleExists(relName, true)
-      } else {
-        cb(error)
-      }
+    if (typeof relName !== 'string') {
+      var msg = 'Bin filename for ' + key +
+        ' is not a string: ' + util.inspect(relName)
+      warn(msg)
+      delete data.bin[key]
+      handleExists(relName, true)
+      return
     }
+    var binPath = path.resolve(dirName, relName)
+    fs.stat(binPath, (err) => handleExists(relName, !err))
   })
 }
 

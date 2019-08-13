@@ -1,0 +1,5 @@
+{
+  "name": "bob-the-cat",
+  "version": "a live bobcat",
+  "description": "instead of semver, package contained live bobcat"
+}
