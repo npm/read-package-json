@@ -19,7 +19,7 @@
     "glob": "^7.1.1",
     "json-parse-better-errors": "^1.0.1",
     "normalize-package-data": "^2.0.0",
-    "slash": "^1.0.0"
+    "npm-normalize-package-bin": "^1.0.0"
   },
   "devDependencies": {
     "standard": "^11.0.0",
