@@ -1,0 +1,5 @@
+{
+  "$schema": "https://json.schemastore.org/package",
+  "name": "has-types-reference",
+  "types": "@types/express"
+}

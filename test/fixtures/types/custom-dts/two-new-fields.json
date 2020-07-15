@@ -1,0 +1,5 @@
+{
+  "$schema": "https://json.schemastore.org/package",
+  "name": "two-new-fields",
+  "main": "./custom-path.js"
+}
