@@ -1,0 +1,5 @@
+{
+  "$schema": "https://json.schemastore.org/package",
+  "name": "subpaths",
+  "main": "./a/b/c.js"
+}

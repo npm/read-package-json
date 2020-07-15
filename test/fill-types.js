@@ -30,6 +30,20 @@ t.test('handles the inferred index.js', t => {
   })
 })
 
+t.test('handles subpaths and starting with ./', t => {
+  const fixture = resolve(__dirname, 'fixtures/types/subpaths/subpath.json')
+  read(fixture, (er, data) => {
+    if (er) {
+      throw er
+    }
+    t.match(data, {
+      main: './a/b/c.js',
+      types: './a/b/c.d.ts'
+    })
+    t.end()
+  })
+})
+
 t.test('handles not overwriting existing fields', t => {
   const fixture = resolve(__dirname, 'fixtures/types/with-field/has-types-field.json')
   read(fixture, (er, data) => {
