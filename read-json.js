@@ -441,6 +441,7 @@ function final (file, data, log, strict, cb) {
 
 function fillTypes (file, data, cb) {
   var index = data.main ? data.main : 'index.js'
+  if (data.exports && data.exports['.']) index = data.exports['.']
   function switchExt (file, ext) {
     var extless = path.join(path.dirname(file), path.basename(file, path.extname(file)))
     return './' + extless + '.' + ext

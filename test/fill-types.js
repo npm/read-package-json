@@ -69,3 +69,20 @@ t.test('does not add types fields if not present', t => {
     t.end()
   })
 })
+
+// https://nodejs.org/api/esm.html#esm_writing_dual_packages_while_avoiding_or_minimizing_hazards
+
+t.test('handles esm modules', t => {
+  const fixture = resolve(__dirname, 'fixtures/types/esmodule-exports/exports.json')
+  read(fixture, (er, data) => {
+    if (er) {
+      throw er
+    }
+    t.match(data, {
+      types: './a/b/c.d.ts'
+    })
+
+    t.false(data.flow, 'flow field should not be added')
+    t.end()
+  })
+})
