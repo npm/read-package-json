@@ -86,3 +86,20 @@ t.test('handles esm modules', t => {
     t.end()
   })
 })
+
+// https://nodejs.org/api/esm.html#esm_exports_sugar
+
+t.test('handles esm modules with sugared exports', t => {
+  const fixture = resolve(__dirname, 'fixtures/types/esmodule-exports-sugar/sugar.json')
+  read(fixture, (er, data) => {
+    if (er) {
+      throw er
+    }
+    t.match(data, {
+      flow: './a/b.flow.js'
+    })
+
+    t.false(data.types, 'types field should not be added')
+    t.end()
+  })
+})
