@@ -38,7 +38,6 @@ function basic_ (t, data) {
 
   // optional deps are folded in.
   t.deepEqual(data.optionalDependencies, pkg.optionalDependencies)
-  t.has(data.dependencies, pkg.optionalDependencies)
   t.has(data.dependencies, pkg.dependencies)
 
   t.deepEqual(data.devDependencies, pkg.devDependencies)
