@@ -95,6 +95,11 @@ function parseJson (file, er, d, log, strict, cb) {
 
   try {
     data = safeJSON(stripBOM(d))
+    for (var key in data) {
+      if (/^_/.test(key)) {
+        delete data[key]
+      }
+    }
   } catch (er) {
     data = parseIndex(d)
     if (!data) return cb(parseError(er, file))
