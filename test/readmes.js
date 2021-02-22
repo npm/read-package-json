@@ -6,12 +6,12 @@ var p = path.resolve(__dirname, 'fixtures/readmes/package.json')
 var readJson = require('../')
 
 var expect = {
-  'name': 'readmes',
-  'version': '99.999.999999999',
-  'readme': '*markdown*\n',
-  'readmeFilename': 'README.md',
-  'description': '*markdown*',
-  '_id': 'readmes@99.999.999999999'
+  name: 'readmes',
+  version: '99.999.999999999',
+  readme: '*markdown*\n',
+  readmeFilename: 'README.md',
+  description: '*markdown*',
+  _id: 'readmes@99.999.999999999'
 }
 
 tap.test('readme test', function (t) {

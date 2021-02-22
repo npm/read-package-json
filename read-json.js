@@ -37,7 +37,7 @@ function readJson (file, log_, strict_, cb_) {
   }
 
   if (!log) log = function () {}
-  cb = arguments[ arguments.length - 1 ]
+  cb = arguments[arguments.length - 1]
 
   readJson_(file, log, strict, cb)
 }
