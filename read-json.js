@@ -348,16 +348,9 @@ function mans (file, data, cb) {
     if (er) {
       return cb(er)
     }
-    mans_(file, data, mans, cb)
+    data.man = mans
+    return cb(null, data)
   })
-}
-
-function mans_ (file, data, mans, cb) {
-  var m = data.directories && data.directories.man
-  data.man = mans.map(function (mf) {
-    return path.resolve(path.dirname(file), m, mf)
-  })
-  return cb(null, data)
 }
 
 function bins (file, data, cb) {
