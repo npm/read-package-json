@@ -19,11 +19,24 @@ t.test('read from an index.js file', t => {
   })
 })
 
-t.test('read broken json', t => {
-  const fixture = resolve(__dirname, 'fixtures/indexjs-bad/package.json')
+t.test('missing file', t => {
+  // this subdirectory does not exist
+  const fixture = resolve(__dirname, 'fixtures/indexjs-missing/package.json')
   read(fixture, (er, data) => {
     t.match(er, {
       code: 'ENOENT',
+      path: fixture
+    })
+    t.notOk(data)
+    t.end()
+  })
+})
+
+t.test('EJSONPARSE', t => {
+  const fixture = resolve(__dirname, 'fixtures/indexjs-bad/package.json')
+  read(fixture, (er, data) => {
+    t.match(er, {
+      code: 'EJSONPARSE',
       path: fixture
     })
     t.notOk(data)
