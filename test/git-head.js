@@ -25,9 +25,11 @@ if (isGit) {
     t.test('detached case', function (tt) {
       var p = path.resolve(__dirname, '..', 'package.json')
       readJson(p, function (er, data) {
-        if (er) throw er
+        if (er) {
+          throw er
+        }
         tt.ok(data)
-        tt.similar(data.gitHead, /^[a-f0-9]{40}$/)
+        tt.match(data.gitHead, /^[a-f0-9]{40}$/)
         tt.end()
       })
     })
@@ -35,14 +37,18 @@ if (isGit) {
     function testGitRepo (kind, extraRepoCommand, t) {
       var repoDirName = repoProjectName + '-' + kind
       var cmd = `cd ${__dirname} && git clone ${repo} ${repoDirName} && cd ${repoDirName}`
-      if (extraRepoCommand) cmd += ` && ${extraRepoCommand}`
+      if (extraRepoCommand) {
+        cmd += ` && ${extraRepoCommand}`
+      }
       childProcess.execSync(cmd)
       repoDirs.push(repoDirName)
       var p = path.resolve(__dirname, repoDirName, 'package.json')
       readJson(p, function (er, data) {
-        if (er) throw er
+        if (er) {
+          throw er
+        }
         t.ok(data)
-        t.similar(data.gitHead, /^[a-f0-9]{40}$/)
+        t.match(data.gitHead, /^[a-f0-9]{40}$/)
         t.end()
       })
     }
@@ -55,7 +61,7 @@ if (isGit) {
       testGitRepo('git-pack-refs', 'git pack-refs --all', tt)
     })
 
-    t.tearDown(function () {
+    t.teardown(function () {
       repoDirs.forEach(function (d) {
         childProcess.execSync(`rm -rf ${path.resolve(__dirname, d)}`)
       })

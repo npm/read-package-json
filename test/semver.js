@@ -6,7 +6,7 @@ const logs = []
 const warn = (...msg) => logs.push(msg)
 readJson(file, warn, false, (er, data) => {
   t.match(er, {
-    message: 'Invalid version: "a live bobcat"'
+    message: 'Invalid version: "a live bobcat"',
   })
   t.notOk(data)
   t.end()
