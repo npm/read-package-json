@@ -7,6 +7,7 @@ t.test('strip underscores', t => {
     if (er) {
       throw er
     }
+    delete data.gitHead
     t.strictSame(data, {
       _id: 'underscore@1.2.3',
       name: 'underscore',
