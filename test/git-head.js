@@ -16,7 +16,7 @@ try {
 
 if (isGit) {
   tap.test('gitHead tests', function (t) {
-    t.plan(3)
+    t.plan(4)
 
     const repoProjectName = 'read-package-json'
     const repo = 'https://github.com/npm/' + repoProjectName + '.git'
@@ -34,7 +34,7 @@ if (isGit) {
       })
     })
 
-    function testGitRepo (kind, extraRepoCommand, t) {
+    function testGitRepo (kind, file, extraRepoCommand, t) {
       var repoDirName = repoProjectName + '-' + kind
       var cmd = `cd ${__dirname} && git clone ${repo} ${repoDirName} && cd ${repoDirName}`
       if (extraRepoCommand) {
@@ -42,7 +42,7 @@ if (isGit) {
       }
       childProcess.execSync(cmd)
       repoDirs.push(repoDirName)
-      var p = path.resolve(__dirname, repoDirName, 'package.json')
+      var p = path.resolve(__dirname, repoDirName, file)
       readJson(p, function (er, data) {
         if (er) {
           throw er
@@ -54,11 +54,15 @@ if (isGit) {
     }
 
     t.test('basic case', function (tt) {
-      testGitRepo('basic', '', tt)
+      testGitRepo('basic', 'package.json', '', tt)
+    })
+
+    t.test('subdirectory', function (tt) {
+      testGitRepo('subdir', 'test/fixtures/bin.json', '', tt)
     })
 
     t.test('git-pack-refs vs gitHead', function (tt) {
-      testGitRepo('git-pack-refs', 'git pack-refs --all', tt)
+      testGitRepo('git-pack-refs', 'package.json', 'git pack-refs --all', tt)
     })
 
     t.teardown(function () {

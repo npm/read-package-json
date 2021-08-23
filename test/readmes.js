@@ -22,6 +22,7 @@ tap.test('readme test', function (t) {
 })
 
 function test (t, data) {
+  delete data.gitHead
   t.same(data, expect)
   t.end()
 }
