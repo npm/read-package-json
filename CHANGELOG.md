@@ -2,6 +2,46 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.0.0"></a>
+# [4.0.0](https://github.com/npm/read-package-json/compare/v3.0.1...v4.0.0) (2021-08-18)
+
+
+### Bug Fixes
+
+* **parseError:** use file not path attribute ([5002e00](https://github.com/npm/read-package-json/commit/5002e00))
+
+
+### BREAKING CHANGES
+
+* **parseError:** rename file attribute to path
+
+In order to align with the way our other "fast" json parsers work the
+err.file attribute needs to be renamed to err.path.
+
+Also other errors i.e. ENOENT attach a path attribute.
+
+
+
+<a name="3.0.1"></a>
+## [3.0.1](https://github.com/npm/read-package-json/compare/v3.0.0...v3.0.1) (2021-02-22)
+
+
+### Bug Fixes
+
+* Strip underscore prefixed fields from file contents ([ac771d8](https://github.com/npm/read-package-json/commit/ac771d8))
+
+
+
+<a name="3.0.0"></a>
+# [3.0.0](https://github.com/npm/read-package-json/compare/v2.1.2...v3.0.0) (2020-10-13)
+
+
+### Bug Fixes
+
+* check-in updated lockfile ([19d9fbe](https://github.com/npm/read-package-json/commit/19d9fbe))
+
+
+
 <a name="2.1.2"></a>
 ## [2.1.2](https://github.com/npm/read-package-json/compare/v2.1.1...v2.1.2) (2020-08-20)
 

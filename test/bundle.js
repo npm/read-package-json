@@ -11,12 +11,12 @@ t.test('bundle-true', t => {
     t.match(data, {
       name: 'bundletrue',
       version: '1.2.3',
-      dependencies: { a: '', b: '' },
+      dependencies: { a: '*', b: '' },
       optionalDependencies: { b: '' },
       devDependencies: { c: '' },
-      bundleDependencies: [ 'a' ],
+      bundleDependencies: ['a'],
       readme: 'ERROR: No README data found!',
-      _id: 'bundletrue@1.2.3'
+      _id: 'bundletrue@1.2.3',
     })
     t.end()
   })
@@ -40,12 +40,12 @@ t.test('bundle-array', t => {
     t.match(data, {
       name: 'bundlearray',
       version: '1.2.3',
-      dependencies: { a: '', b: '', c: '*' },
+      dependencies: { a: '*', b: '*' },
       optionalDependencies: { b: '' },
       devDependencies: { c: '' },
-      bundleDependencies: [ 'a', 'b', 'c' ],
+      bundleDependencies: ['a', 'b', 'c'],
       readme: 'ERROR: No README data found!',
-      _id: 'bundlearray@1.2.3'
+      _id: 'bundlearray@1.2.3',
     })
     t.end()
   })
@@ -61,7 +61,7 @@ t.test('bundle-false', t => {
       optionalDependencies: { b: '' },
       devDependencies: { c: '' },
       readme: 'ERROR: No README data found!',
-      _id: 'bundlefalse@1.2.3'
+      _id: 'bundlefalse@1.2.3',
     })
     t.end()
   })

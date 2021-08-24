@@ -17,7 +17,7 @@ tap.test('Bin test', function (t) {
   var warn = createWarningCollector()
   readJson(p, warn, function (er, data) {
     t.equal(warn.warnings.length, 0)
-    t.strictSame(data.bin, {'bin-test': 'bin/echo'})
+    t.strictSame(data.bin, { 'bin-test': 'bin/echo' })
     t.end()
   })
 })
@@ -37,7 +37,7 @@ tap.test('Empty bin test', function (t) {
   var warn = createWarningCollector()
   readJson(p, warn, function (er, data) {
     t.equal(warn.warnings.length, 0)
-    t.strictEqual(data.bin, undefined, 'no mapping to bin because object was empty')
+    t.equal(data.bin, undefined, 'no mapping to bin because object was empty')
     t.end()
   })
 })

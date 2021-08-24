@@ -10,15 +10,15 @@ var expect = {
   author: {
     name: 'Isaac Z. Schlueter',
     email: 'i@izs.me',
-    url: 'http://blog.izs.me/'
+    url: 'http://blog.izs.me/',
   },
   description: 'The thing npm uses to read package.json files with semantics and defaults and validation',
   repository: {
     type: 'git',
-    url: 'git://github.com/isaacs/read-package-json.git'
+    url: 'git://github.com/isaacs/read-package-json.git',
   },
   bugs: {
-    url: 'https://github.com/isaacs/read-package-json/issues'
+    url: 'https://github.com/isaacs/read-package-json/issues',
   },
   main: 'read-json.js',
   scripts: { test: 'tap test/*.js' },
@@ -28,18 +28,19 @@ var expect = {
     semver: '~1.0.14',
     slide: '~1.1.3',
     npmlog: '0',
-    'graceful-fs': '~1.1.8'
+    'graceful-fs': '~1.1.8',
   },
   devDependencies: { tap: '~0.2.5' },
   homepage: 'https://github.com/isaacs/read-package-json#readme',
   optionalDependencies: { npmlog: '0', 'graceful-fs': '~1.1.8' },
   _id: 'read-package-json@0.1.1',
-  readme: 'ERROR: No README data found!'
+  readme: 'ERROR: No README data found!',
 }
 
 tap.test('from css', function (t) {
   var c = path.join(__dirname, 'fixtures', 'not-json.css')
   readJson(c, function (er, d) {
+    delete d.gitHead
     t.same(d, expect)
     t.end()
   })
@@ -47,11 +48,13 @@ tap.test('from css', function (t) {
 
 tap.test('from js', function (t) {
   readJson(__filename, function (er, d) {
+    delete d.gitHead
     t.same(d, expect)
     t.end()
   })
 })
 
+/* eslint-disable max-len */
 /**package
 {
   "name": "read-package-json",
