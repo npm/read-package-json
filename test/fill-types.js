@@ -11,7 +11,7 @@ t.test('adds types with a custom main field', t => {
     t.match(data, {
       main: './custom-path.js',
       types: './custom-path.d.ts',
-      flow: './custom-path.flow.js'
+      flow: './custom-path.flow.js',
     })
     t.end()
   })
@@ -24,7 +24,7 @@ t.test('handles the inferred index.js', t => {
       throw er
     }
     t.match(data, {
-      types: './index.d.ts'
+      types: './index.d.ts',
     })
     t.end()
   })
@@ -38,7 +38,7 @@ t.test('handles subpaths and starting with ./', t => {
     }
     t.match(data, {
       main: './a/b/c.js',
-      types: './a/b/c.d.ts'
+      types: './a/b/c.d.ts',
     })
     t.end()
   })
@@ -52,7 +52,7 @@ t.test('handles not overwriting existing fields', t => {
     }
     t.match(data, {
       types: '@types/express',
-      flow: './index.flow.js'
+      flow: './index.flow.js',
     })
     t.end()
   })
@@ -64,8 +64,8 @@ t.test('does not add types fields if not present', t => {
     if (er) {
       throw er
     }
-    t.false(data.types, 'types field should not be added')
-    t.false(data.flow, 'flow field should not be added')
+    t.notOk(data.types, 'types field should not be added')
+    t.notOk(data.flow, 'flow field should not be added')
     t.end()
   })
 })
@@ -79,10 +79,10 @@ t.test('handles esm modules', t => {
       throw er
     }
     t.match(data, {
-      types: './a/b/c.d.ts'
+      types: './a/b/c.d.ts',
     })
 
-    t.false(data.flow, 'flow field should not be added')
+    t.notOk(data.flow, 'flow field should not be added')
     t.end()
   })
 })
@@ -96,10 +96,10 @@ t.test('handles esm modules with sugared exports', t => {
       throw er
     }
     t.match(data, {
-      flow: './a/b.flow.js'
+      flow: './a/b.flow.js',
     })
 
-    t.false(data.types, 'types field should not be added')
+    t.notOk(data.types, 'types field should not be added')
     t.end()
   })
 })

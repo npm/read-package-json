@@ -152,6 +152,6 @@ presumably in the `PATH` environment variable.
 
 ### `types` and `flow` fields
 
-If you do not have a `types` or `flow` field, then it will check if 
+If you do not have a `types` or `flow` field, then it will check if
 corresponding `*.d.ts` or `*.flow.js` files exist for your package
 entry file and add them to the `package.json`.
