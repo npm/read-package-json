@@ -150,8 +150,8 @@ is in the `PATH` environ when npm runs scripts.  When
 installing globally, they are linked into `{prefix}/bin`, which is
 presumably in the `PATH` environment variable.
 
-### `types` and `flow` fields
+### `types` field
 
-If you do not have a `types` or `flow` field, then it will check if
-corresponding `*.d.ts` or `*.flow.js` files exist for your package
-entry file and add them to the `package.json`.
+If you do not have a `types` field, then it will check if a
+corresponding `*.d.ts` file exists for your package entry file and add
+it to the `package.json`.
