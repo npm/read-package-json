@@ -527,8 +527,9 @@ function fillTypes (file, data, cb) {
     index = data.exports['.']
   }
 
-  var extless = path.join(path.dirname(index), path.basename(index, path.extname(index)))
-  var dts =  `./${extless}.d.ts`
+  var extless =
+    path.join(path.dirname(index), path.basename(index, path.extname(index)))
+  var dts = `./${extless}.d.ts`
   var dtsPath = path.join(path.dirname(file), dts)
   var hasDTSFields = 'types' in data || 'typings' in data
   if (!hasDTSFields && fs.existsSync(dtsPath)) {
