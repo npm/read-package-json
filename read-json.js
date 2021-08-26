@@ -527,24 +527,12 @@ function fillTypes (file, data, cb) {
     index = data.exports['.']
   }
 
-  function switchExt (file, ext) {
-    var extless =
-      path.join(path.dirname(file), path.basename(file, path.extname(file)))
-    return './' + extless + '.' + ext
-  }
-
-  var dts = switchExt(index, 'd.ts')
+  var extless = path.join(path.dirname(index), path.basename(index, path.extname(index)))
+  var dts =  `./${extless}.d.ts`
   var dtsPath = path.join(path.dirname(file), dts)
   var hasDTSFields = 'types' in data || 'typings' in data
   if (!hasDTSFields && fs.existsSync(dtsPath)) {
     data.types = dts
-  }
-
-  var flow = switchExt(index, 'flow.js')
-  var flowPath = path.join(path.dirname(file), flow)
-  var hasFlowField = 'flow' in data
-  if (!hasFlowField && fs.existsSync(flowPath)) {
-    data.flow = flow
   }
 
   cb(null, data)
