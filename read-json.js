@@ -339,16 +339,17 @@ function readme_ (file, data, rm, cb) {
 }
 
 function mans (file, data, cb) {
-  var m = data.directories && data.directories.man
-  if (data.man || !m) {
+  let cwd = data.directories && data.directories.man
+  if (data.man || !cwd) {
     return cb(null, data)
   }
-  m = path.resolve(path.dirname(file), m)
-  glob('**/*.[0-9]', { cwd: m }, function (er, mans) {
+  const dirname = path.dirname(file)
+  cwd = path.resolve(path.dirname(file), cwd)
+  glob('**/*.[0-9]', { cwd }, function (er, mans) {
     if (er) {
       return cb(er)
     }
-    data.man = mans
+    data.man = mans.map(man => path.relative(dirname, path.join(cwd, man)))
     return cb(null, data)
   })
 }
