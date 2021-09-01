@@ -69,7 +69,7 @@ t.test('does not add types fields if not present', t => {
 
 // https://nodejs.org/api/esm.html#esm_writing_dual_packages_while_avoiding_or_minimizing_hazards
 
-t.test('handles esm modules', t => {
+t.skip('handles esm modules', t => {
   const fixture = resolve(__dirname, 'fixtures/types/esmodule-exports/exports.json')
   read(fixture, (er, data) => {
     if (er) {
@@ -85,7 +85,7 @@ t.test('handles esm modules', t => {
 
 // https://nodejs.org/api/esm.html#esm_exports_sugar
 
-t.test('handles esm modules with sugared exports', t => {
+t.skip('handles esm modules with sugared exports', t => {
   const fixture = resolve(__dirname, 'fixtures/types/esmodule-exports-sugar/sugar.json')
   read(fixture, (er, data) => {
     if (er) {
