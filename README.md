@@ -149,3 +149,9 @@ When installing locally, npm links bins into `node_modules/.bin`, which
 is in the `PATH` environ when npm runs scripts.  When
 installing globally, they are linked into `{prefix}/bin`, which is
 presumably in the `PATH` environment variable.
+
+### `types` field
+
+If you do not have a `types` field, then it will check if a
+corresponding `*.d.ts` file exists for your package entry file and add
+it to the `package.json`.

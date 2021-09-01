@@ -21,6 +21,7 @@ readJson.extraSet = [
   mans,
   bins,
   githead,
+  fillTypes,
 ]
 
 var typoWarned = {}
@@ -516,6 +517,27 @@ function final (file, data, log, strict, cb) {
     typoWarned[pId] = true
     cb(null, data)
   })
+}
+
+function fillTypes (file, data, cb) {
+  var index = data.main ? data.main : 'index.js'
+  if (data.exports && typeof data.exports === 'string') {
+    index = data.exports
+  }
+  if (data.exports && data.exports['.']) {
+    index = data.exports['.']
+  }
+
+  var extless =
+    path.join(path.dirname(index), path.basename(index, path.extname(index)))
+  var dts = `./${extless}.d.ts`
+  var dtsPath = path.join(path.dirname(file), dts)
+  var hasDTSFields = 'types' in data || 'typings' in data
+  if (!hasDTSFields && fs.existsSync(dtsPath)) {
+    data.types = dts
+  }
+
+  cb(null, data)
 }
 
 function makePackageId (data) {
