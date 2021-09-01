@@ -521,12 +521,30 @@ function final (file, data, log, strict, cb) {
 
 function fillTypes (file, data, cb) {
   var index = data.main ? data.main : 'index.js'
-  if (data.exports && typeof data.exports === 'string') {
-    index = data.exports
-  }
-  if (data.exports && data.exports['.']) {
-    index = data.exports['.']
-  }
+
+  // TODO exports is much more complicated than this in verbose format
+  // We need to support for instance
+
+  // "exports": {
+  //   ".": [
+  //     {
+  //       "default": "./lib/npm.js"
+  //     },
+  //     "./lib/npm.js"
+  //   ],
+  //   "./package.json": "./package.json"
+  // },
+  // as well as conditional exports
+
+  // if (data.exports && typeof data.exports === 'string') {
+  //   index = data.exports
+  // }
+
+  // if (data.exports && data.exports['.']) {
+  //   index = data.exports['.']
+  //   if (typeof index !== 'string') {
+  //   }
+  // }
 
   var extless =
     path.join(path.dirname(index), path.basename(index, path.extname(index)))
