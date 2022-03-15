@@ -11,7 +11,7 @@ t.test('bundle-true', t => {
     t.match(data, {
       name: 'bundletrue',
       version: '1.2.3',
-      dependencies: { a: '*', b: '' },
+      dependencies: { a: '', b: '' },
       optionalDependencies: { b: '' },
       devDependencies: { c: '' },
       bundleDependencies: ['a'],
@@ -40,7 +40,7 @@ t.test('bundle-array', t => {
     t.match(data, {
       name: 'bundlearray',
       version: '1.2.3',
-      dependencies: { a: '*', b: '*' },
+      dependencies: { a: '', b: '' },
       optionalDependencies: { b: '' },
       devDependencies: { c: '' },
       bundleDependencies: ['a', 'b', 'c'],
