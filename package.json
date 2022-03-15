@@ -29,7 +29,7 @@
     "glob": "^7.2.0",
     "json-parse-even-better-errors": "^2.3.0",
     "normalize-package-data": "^4.0.0",
-    "npm-normalize-package-bin": "^1.0.0"
+    "npm-normalize-package-bin": "^1.0.1"
   },
   "devDependencies": {
     "@npmcli/template-oss": "^2.9.2",
