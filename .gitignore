@@ -1,15 +1,23 @@
-*.swp
-.*.swp
+# This file is automatically added by @npmcli/template-oss. Do not edit.
 
-.DS_Store
-*~
-.project
-.settings
-npm-debug.log
-coverage.html
-.idea
-lib-cov
+# ignore everything in the root
+/*
 
-.nyc_output
-
-node_modules
+# keep these
+!/.commitlintrc.js
+!/.npmrc
+!/.eslintrc*
+!/.github
+!**/.gitignore
+!/package.json
+!/docs
+!/bin
+!/lib
+!/map.js
+!/tap-snapshots
+!/test
+!/scripts
+!/README*
+!/LICENSE*
+!/SECURITY*
+!/CHANGELOG*
