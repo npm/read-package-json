@@ -12,6 +12,7 @@ var expect = {
     email: 'i@izs.me',
     url: 'http://blog.izs.me/',
   },
+  /* eslint-disable-next-line max-len */
   description: 'The thing npm uses to read package.json files with semantics and defaults and validation',
   repository: {
     type: 'git',
