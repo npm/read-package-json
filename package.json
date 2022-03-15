@@ -7,7 +7,7 @@
     "type": "git",
     "url": "https://github.com/npm/read-package-json.git"
   },
-  "main": "read-json.js",
+  "main": "lib/read-json.js",
   "scripts": {
     "prerelease": "npm t",
     "postrelease": "npm publish && git push --follow-tags",
