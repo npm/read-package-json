@@ -26,7 +26,7 @@
     "snap": "tap"
   },
   "dependencies": {
-    "glob": "^7.1.1",
+    "glob": "^7.2.0",
     "json-parse-even-better-errors": "^2.3.0",
     "normalize-package-data": "^3.0.0",
     "npm-normalize-package-bin": "^1.0.0"
