@@ -14,6 +14,10 @@ var expect = {
   _id: 'readmes@99.999.999999999',
 }
 
+if (process.platform === 'win32') {
+  expect.readme = '*markdown*\r\n'
+}
+
 tap.test('readme test', function (t) {
   readJson(p, function (er, data) {
     t.error(er, 'read README without error')
