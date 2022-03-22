@@ -32,7 +32,7 @@
     "npm-normalize-package-bin": "^1.0.1"
   },
   "devDependencies": {
-    "@npmcli/template-oss": "^2.9.2",
+    "@npmcli/template-oss": "^3.1.2",
     "tap": "^15.0.9"
   },
   "license": "ISC",
