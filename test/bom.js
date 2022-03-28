@@ -9,9 +9,9 @@ tap.test('BOM test', function (t) {
       throw er
     }
     p = path.resolve(__dirname, 'fixtures/nobom.json')
-    readJson(p, function (er, data2) {
-      if (er) {
-        throw er
+    readJson(p, function (jsonErr, data2) {
+      if (jsonErr) {
+        throw jsonErr
       }
       t.same(data, data2)
       t.end()
