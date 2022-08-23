@@ -1,6 +1,6 @@
 {
   "name": "read-package-json",
-  "version": "5.0.1",
+  "version": "5.0.2",
   "author": "GitHub Inc.",
   "description": "The thing npm uses to read package.json files with semantics and defaults and validation",
   "repository": {

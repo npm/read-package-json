@@ -20,6 +20,13 @@ Also other errors i.e. ENOENT attach a path attribute.
 
 
 <a name="3.0.1"></a>
+## [5.0.2](https://github.com/npm/read-package-json/compare/v5.0.1...v5.0.2) (2022-08-23)
+
+
+### Dependencies
+
+* bump npm-normalize-package-bin from 1.0.1 to 2.0.0 ([#129](https://github.com/npm/read-package-json/issues/129)) ([6ce5501](https://github.com/npm/read-package-json/commit/6ce55010e88f83a4d59097e5583e4a8715260a63))
+
 ### [5.0.1](https://github.com/npm/read-package-json/compare/v5.0.0...v5.0.1) (2022-04-20)
 
 
