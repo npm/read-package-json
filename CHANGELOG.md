@@ -20,6 +20,22 @@ Also other errors i.e. ENOENT attach a path attribute.
 
 
 <a name="3.0.1"></a>
+## [6.0.0](https://github.com/npm/read-package-json/compare/v5.0.2...v6.0.0) (2022-10-14)
+
+### ⚠️ BREAKING CHANGES
+
+* `read-package-json` is now compatible with the following semver range for node: `^14.17.0 || ^16.13.0 || >=18.0.0`
+
+### Features
+
+* [`0952b2c`](https://github.com/npm/read-package-json/commit/0952b2c6ba94bc1caaca68cc88aba95c0c22a99b) [#140](https://github.com/npm/read-package-json/pull/140) postinstall for dependabot template-oss PR (@lukekarrys)
+
+### Dependencies
+
+* [`16f6e31`](https://github.com/npm/read-package-json/commit/16f6e3181240bfa9a748df795483d80ddeb0d15d) [#150](https://github.com/npm/read-package-json/pull/150) bump normalize-package-data from 4.0.1 to 5.0.0
+* [`d736548`](https://github.com/npm/read-package-json/commit/d7365487d46c5bcf0e0a33a4bd7edaf8175a7658) [#148](https://github.com/npm/read-package-json/pull/148) bump npm-normalize-package-bin from 2.0.0 to 3.0.0
+* [`505edd7`](https://github.com/npm/read-package-json/commit/505edd7703f9eb75e05656e5e2f1c0b34b669378) [#147](https://github.com/npm/read-package-json/pull/147) bump json-parse-even-better-errors from 2.3.1 to 3.0.0
+
 ## [5.0.2](https://github.com/npm/read-package-json/compare/v5.0.1...v5.0.2) (2022-08-23)
 
 
