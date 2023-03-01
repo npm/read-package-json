@@ -23,7 +23,7 @@
     "template-oss-apply": "template-oss-apply --force"
   },
   "dependencies": {
-    "glob": "^8.0.1",
+    "glob": "^9.1.0",
     "json-parse-even-better-errors": "^3.0.0",
     "normalize-package-data": "^5.0.0",
     "npm-normalize-package-bin": "^3.0.0"
