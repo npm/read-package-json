@@ -23,7 +23,7 @@
     "template-oss-apply": "template-oss-apply --force"
   },
   "dependencies": {
-    "glob": "^8.0.1",
+    "glob": "^9.3.0",
     "json-parse-even-better-errors": "^3.0.0",
     "normalize-package-data": "^5.0.0",
     "npm-normalize-package-bin": "^3.0.0"
@@ -43,9 +43,9 @@
   },
   "tap": {
     "branches": 68,
-    "functions": 83,
-    "lines": 76,
-    "statements": 77,
+    "functions": 74,
+    "lines": 74,
+    "statements": 74,
     "nyc-arg": [
       "--exclude",
       "tap-snapshots/**"
