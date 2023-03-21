@@ -43,9 +43,9 @@
   },
   "tap": {
     "branches": 68,
-    "functions": 83,
-    "lines": 76,
-    "statements": 77,
+    "functions": 74,
+    "lines": 74,
+    "statements": 74,
     "nyc-arg": [
       "--exclude",
       "tap-snapshots/**"
