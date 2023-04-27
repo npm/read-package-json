@@ -20,6 +20,12 @@ Also other errors i.e. ENOENT attach a path attribute.
 
 
 <a name="3.0.1"></a>
+## [6.0.2](https://github.com/npm/read-package-json/compare/v6.0.1...v6.0.2) (2023-04-27)
+
+### Dependencies
+
+* [`30cea18`](https://github.com/npm/read-package-json/commit/30cea18041ae857d27e720fda576c2d43a535fe3) [#170](https://github.com/npm/read-package-json/pull/170) bump glob from 9.3.5 to 10.2.2 (#170)
+
 ## [6.0.1](https://github.com/npm/read-package-json/compare/v6.0.0...v6.0.1) (2023-03-21)
 
 ### Dependencies
