@@ -20,6 +20,12 @@ Also other errors i.e. ENOENT attach a path attribute.
 
 
 <a name="3.0.1"></a>
+## [6.0.3](https://github.com/npm/read-package-json/compare/v6.0.2...v6.0.3) (2023-05-03)
+
+### Bug Fixes
+
+* [`7b516f1`](https://github.com/npm/read-package-json/commit/7b516f18dd84055f330a44a596bc7fc68c6f2c31) [#174](https://github.com/npm/read-package-json/pull/174) use jsonClone to fix cache layer (#174) (@antongolub)
+
 ## [6.0.2](https://github.com/npm/read-package-json/compare/v6.0.1...v6.0.2) (2023-04-27)
 
 ### Dependencies
