@@ -42,10 +42,10 @@
     "node": "^14.17.0 || ^16.13.0 || >=18.0.0"
   },
   "tap": {
-    "branches": 68,
-    "functions": 74,
-    "lines": 74,
-    "statements": 74,
+    "branches": 73,
+    "functions": 77,
+    "lines": 77,
+    "statements": 77,
     "nyc-arg": [
       "--exclude",
       "tap-snapshots/**"
