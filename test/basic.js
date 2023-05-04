@@ -1,17 +1,15 @@
 const fs = require('fs')
 const path = require('path')
-const tap = require('tap')
+const t = require('tap')
 
 const readJson = require('..')
 
-tap.test('basic test', function (t) {
+t.test('basic test', t => {
   const readme = fs.readFileSync(path.resolve(__dirname, './fixtures/basic/README.md'), 'utf8')
   const p = path.resolve(__dirname, './fixtures/basic/package.json')
   const pkg = require(p)
-  readJson(p, function (er, data) {
-    if (er) {
-      throw er
-    }
+  readJson(p, function (err, data) {
+    t.error(err)
     t.ok(data)
     t.equal(data.version, pkg.version)
     t.equal(data._id, data.name + '@' + data.version)
@@ -30,3 +28,19 @@ tap.test('basic test', function (t) {
     t.end()
   })
 })
+
+t.test('directory', t => {
+  const p = path.resolve(__dirname)
+  readJson(p, function (err, data) {
+    t.error(data)
+    t.equal(err.code, 'EISDIR')
+    t.end()
+  })
+})
+// t.test('file not found', t => {
+//   const p = path.resolve(__dirname, './fixtures/nonexistant.json')
+//   readJson(p, function (err, data) {
+//     t.error(data)
+//     t.equal(err.code, 'ENOENT')
+//   })
+// })
