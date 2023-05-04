@@ -41,3 +41,25 @@ tap.test('Empty bin test', function (t) {
     t.end()
   })
 })
+
+tap.test('Bin dir test', function (t) {
+  var p = path.resolve(__dirname, 'fixtures/bindir.json')
+  var warn = createWarningCollector()
+  readJson(p, warn, function (er, data) {
+    t.equal(warn.warnings.length, 0)
+    t.equal(data.name, 'bindir-test')
+    t.strictSame(data.bin, { echo: 'bin/echo' })
+    t.end()
+  })
+})
+
+tap.test('Bin dir trim prefix test', function (t) {
+  var p = path.resolve(__dirname, 'fixtures/bindiroutofscope.json')
+  var warn = createWarningCollector()
+  readJson(p, warn, function (er, data) {
+    t.equal(warn.warnings.length, 0)
+    t.equal(data.name, 'bindiroutofscope-test')
+    t.strictSame(data.bin, { echo: 'bin/echo' })
+    t.end()
+  })
+})
