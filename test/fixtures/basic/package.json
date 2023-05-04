@@ -1,0 +1,19 @@
+{
+  "name": "@npmcli/test-fixture",
+  "version": "1.0.0",
+  "description": "A very basic package.json with a README.md file",
+  "author": "GitHub",
+  "scripts": {
+    "test": "echo 'all good'"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "abbrev": "1.0.0"
+  },
+  "devDependencies": {
+    "tap": "1.0.0"
+  },
+  "optionalDependencies": {
+    "npm": "1.0.0"
+  }
+}
