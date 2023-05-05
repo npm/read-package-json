@@ -99,34 +99,6 @@ If a bindings.gyp file exists, and there is not already a
 `scripts.install` field, then the `scripts.install` field will be set to
 `node-gyp rebuild`.
 
-### `index.js`
-
-If the json file does not exist, but there is a `index.js` file
-present instead, and that file has a package comment, then it will try
-to parse the package comment, and use that as the data instead.
-
-A package comment looks like this:
-
-```javascript
-/**package
- * { "name": "my-bare-module"
- * , "version": "1.2.3"
- * , "description": "etc...." }
- **/
-
-// or...
-
-/**package
-{ "name": "my-bare-module"
-, "version": "1.2.3"
-, "description": "etc...." }
-**/
-```
-
-The important thing is that it starts with `/**package`, and ends with
-`**/`.  If the package.json file exists, then the index.js is not
-parsed.
-
 ### `{directories.man}/*.[0-9]`
 
 If there is not already a `man` field defined as an array of files or a
