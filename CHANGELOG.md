@@ -20,6 +20,12 @@ Also other errors i.e. ENOENT attach a path attribute.
 
 
 <a name="3.0.1"></a>
+## [6.0.4](https://github.com/npm/read-package-json/compare/v6.0.3...v6.0.4) (2023-05-31)
+
+### Bug Fixes
+
+* [`d8eca92`](https://github.com/npm/read-package-json/commit/d8eca922bb6a99fc84c4d5585ea4d3de7137f911) [#177](https://github.com/npm/read-package-json/pull/177) prevent directory.bin referencing outside the package root (#177) (@antongolub)
+
 ## [6.0.3](https://github.com/npm/read-package-json/compare/v6.0.2...v6.0.3) (2023-05-03)
 
 ### Bug Fixes
