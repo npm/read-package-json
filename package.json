@@ -25,7 +25,7 @@
   "dependencies": {
     "glob": "^10.2.2",
     "json-parse-even-better-errors": "^3.0.0",
-    "normalize-package-data": "^5.0.0",
+    "normalize-package-data": "^6.0.0",
     "npm-normalize-package-bin": "^3.0.0"
   },
   "devDependencies": {
