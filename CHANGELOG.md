@@ -20,6 +20,20 @@ Also other errors i.e. ENOENT attach a path attribute.
 
 
 <a name="3.0.1"></a>
+## [7.0.0](https://github.com/npm/read-package-json/compare/v6.0.4...v7.0.0) (2023-08-15)
+
+### ⚠️ BREAKING CHANGES
+
+* support for node 14 has been removed
+
+### Bug Fixes
+
+* [`2845aa5`](https://github.com/npm/read-package-json/commit/2845aa5ee0fdd0c20fd385f8e9bea4119dd8de2a) [#187](https://github.com/npm/read-package-json/pull/187) drop node14 support (@lukekarrys)
+
+### Dependencies
+
+* [`3c10858`](https://github.com/npm/read-package-json/commit/3c10858a4230bc750a4e0522465e4e6e7f0d2cb9) [#186](https://github.com/npm/read-package-json/pull/186) bump normalize-package-data from 5.0.0 to 6.0.0
+
 ## [6.0.4](https://github.com/npm/read-package-json/compare/v6.0.3...v6.0.4) (2023-05-31)
 
 ### Bug Fixes
