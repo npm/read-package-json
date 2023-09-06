@@ -1,25 +1,5 @@
 # Changelog
 
-# [4.0.0](https://github.com/npm/read-package-json/compare/v3.0.1...v4.0.0) (2021-08-18)
-
-
-### Bug Fixes
-
-* **parseError:** use file not path attribute ([5002e00](https://github.com/npm/read-package-json/commit/5002e00))
-
-
-### BREAKING CHANGES
-
-* **parseError:** rename file attribute to path
-
-In order to align with the way our other "fast" json parsers work the
-err.file attribute needs to be renamed to err.path.
-
-Also other errors i.e. ENOENT attach a path attribute.
-
-
-
-<a name="3.0.1"></a>
 ## [7.0.0](https://github.com/npm/read-package-json/compare/v6.0.4...v7.0.0) (2023-08-15)
 
 ### ⚠️ BREAKING CHANGES
@@ -111,6 +91,26 @@ Also other errors i.e. ENOENT attach a path attribute.
 * update json-parse-even-better-errors requirement ([#116](https://www.github.com/npm/read-package-json/issues/116)) ([1b1b3f0](https://www.github.com/npm/read-package-json/commit/1b1b3f0a979d1f6cd4a46b86b21abe020d849052))
 * update npm-normalize-package-bin requirement from ^1.0.0 to ^1.0.1 ([#114](https://www.github.com/npm/read-package-json/issues/114)) ([d1f64a5](https://www.github.com/npm/read-package-json/commit/d1f64a5d8250cc96df2f21200f92c5633418b33e))
 
+# [4.0.0](https://github.com/npm/read-package-json/compare/v3.0.1...v4.0.0) (2021-08-18)
+
+
+### Bug Fixes
+
+* **parseError:** use file not path attribute ([5002e00](https://github.com/npm/read-package-json/commit/5002e00))
+
+
+### BREAKING CHANGES
+
+* **parseError:** rename file attribute to path
+
+In order to align with the way our other "fast" json parsers work the
+err.file attribute needs to be renamed to err.path.
+
+Also other errors i.e. ENOENT attach a path attribute.
+
+
+
+<a name="3.0.1"></a>
 ## [3.0.1](https://github.com/npm/read-package-json/compare/v3.0.0...v3.0.1) (2021-02-22)
 
 
