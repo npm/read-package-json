@@ -1,5 +1,20 @@
 # Changelog
 
+## [7.0.1](https://github.com/npm/read-package-json/compare/v7.0.0...v7.0.1) (2023-12-07)
+
+### Chores
+
+* [`a8d949f`](https://github.com/npm/read-package-json/commit/a8d949fc60b93eb3eeff7f4abee63b12a8a50812) [#215](https://github.com/npm/read-package-json/pull/215) postinstall for dependabot template-oss PR (@lukekarrys)
+* [`1302bc7`](https://github.com/npm/read-package-json/commit/1302bc7debcab71d421084086d38d8886b27bd22) [#215](https://github.com/npm/read-package-json/pull/215) bump @npmcli/template-oss from 4.21.1 to 4.21.3 (@dependabot[bot])
+* [`653fefe`](https://github.com/npm/read-package-json/commit/653fefeeec84a066a3a78779690528992da94835) [#212](https://github.com/npm/read-package-json/pull/212) postinstall for dependabot template-oss PR (@lukekarrys)
+* [`396504e`](https://github.com/npm/read-package-json/commit/396504e070d86f86f52291ab2c229d3174bf0f49) [#212](https://github.com/npm/read-package-json/pull/212) bump @npmcli/template-oss from 4.19.0 to 4.21.1 (@dependabot[bot])
+* [`cf2a925`](https://github.com/npm/read-package-json/commit/cf2a9253710fb21ebc40d8f21bc5dfc629f66b79) [#193](https://github.com/npm/read-package-json/pull/193) postinstall for dependabot template-oss PR (@lukekarrys)
+* [`82a7788`](https://github.com/npm/read-package-json/commit/82a7788f534845c678a45b847d9398539e24b894) [#193](https://github.com/npm/read-package-json/pull/193) bump @npmcli/template-oss from 4.18.1 to 4.19.0 (@dependabot[bot])
+* [`9815e70`](https://github.com/npm/read-package-json/commit/9815e70b5c32ea638456e68594d7b73111dd29ce) [#191](https://github.com/npm/read-package-json/pull/191) postinstall for dependabot template-oss PR (@lukekarrys)
+* [`46c9b90`](https://github.com/npm/read-package-json/commit/46c9b9026c1573ccac2b8fa4535be7eb49228f0d) [#191](https://github.com/npm/read-package-json/pull/191) bump @npmcli/template-oss from 4.18.0 to 4.18.1 (@dependabot[bot])
+* [`c73cf0d`](https://github.com/npm/read-package-json/commit/c73cf0dcbc5cb4debe94bd328b1206b0f56a867d) [#190](https://github.com/npm/read-package-json/pull/190) use npm 9 for CI (#190) (@wraithgar)
+* [`1f477a8`](https://github.com/npm/read-package-json/commit/1f477a848cdbe0627958cf06d36f54b137b466c1) [#189](https://github.com/npm/read-package-json/pull/189) Fix out-of-order ChangeLog entry (#189) (@daniel-santos)
+
 ## [7.0.0](https://github.com/npm/read-package-json/compare/v6.0.4...v7.0.0) (2023-08-15)
 
 ### ⚠️ BREAKING CHANGES
