@@ -40,7 +40,7 @@ Reads the JSON file and does the things.
 
 ## `package.json` Fields
 
-See `man 5 package.json` or `npm help json`.
+See `man 5 package.json` or `npm help package-json`.
 
 ## readJson.log
 
