@@ -1,5 +1,14 @@
 # Changelog
 
+## [7.0.1](https://github.com/npm/read-package-json/compare/v7.0.0...v7.0.1) (2024-04-21)
+
+### Chores
+
+* [`c73cf0d`](https://github.com/npm/read-package-json/commit/c73cf0dcbc5cb4debe94bd328b1206b0f56a867d) [#190](https://github.com/npm/read-package-json/pull/190) use npm 9 for CI (#190) (@wraithgar)
+* [`1f477a8`](https://github.com/npm/read-package-json/commit/1f477a848cdbe0627958cf06d36f54b137b466c1) [#189](https://github.com/npm/read-package-json/pull/189) Fix out-of-order ChangeLog entry (#189) (@daniel-santos)
+* [`70ebc23`](https://github.com/npm/read-package-json/commit/70ebc2357d462241d3d3c011710d55c6c628784c) [#221](https://github.com/npm/read-package-json/pull/221) postinstall for dependabot template-oss PR (@lukekarrys)
+* [`cd2962f`](https://github.com/npm/read-package-json/commit/cd2962f5ba0008ab9b9617ce44ddc6ca25d1204b) [#221](https://github.com/npm/read-package-json/pull/221) bump @npmcli/template-oss from 4.21.3 to 4.21.4 (@dependabot[bot])
+
 ## [7.0.0](https://github.com/npm/read-package-json/compare/v6.0.4...v7.0.0) (2023-08-15)
 
 ### ⚠️ BREAKING CHANGES
