@@ -5,7 +5,7 @@ var tap = require('tap')
 var readJson = require('../')
 
 var createWarningCollector = function () {
-  var warn = function (msg) {
+  var warn = function () {
     warn.warnings.push(arguments)
   }
   warn.warnings = []
@@ -25,7 +25,7 @@ tap.test('Bin test', function (t) {
 tap.test('Bad bin test', function (t) {
   var p = path.resolve(__dirname, 'fixtures/badbin.json')
   var warn = createWarningCollector()
-  readJson(p, warn, function (er, data) {
+  readJson(p, warn, function () {
     t.equal(warn.warnings.length, 1)
     t.equal(warn.warnings[0][2], 'No bin file found at bin/typo')
     t.end()
